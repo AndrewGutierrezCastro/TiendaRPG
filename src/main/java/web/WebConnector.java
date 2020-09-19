@@ -18,11 +18,12 @@ public class WebConnector {
 		client = new OkHttpClient();
 		
 		request = new Request.Builder()
-				.url("https://amazon-product-reviews-keywords.p.rapidapi.com/product/search?category=aps&country=US&keyword=iphone")
+				.url("https://amazon-product-search-api.p.rapidapi.com/")
 				.get()
-				.addHeader("x-rapidapi-host", "amazon-product-reviews-keywords.p.rapidapi.com")
+				.addHeader("x-rapidapi-host", "amazon-product-search-api.p.rapidapi.com")
 				.addHeader("x-rapidapi-key", "77827080bbmsh4cdae57bd6c16c7p158252jsn619c63e614c3")
 				.build();
+		
 	}
 	
 	public void execute() {
