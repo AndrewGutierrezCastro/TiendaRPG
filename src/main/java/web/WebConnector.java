@@ -1,4 +1,4 @@
-package Web;
+package web;
 
 import java.io.IOException;
 
@@ -7,7 +7,6 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 public class WebConnector {
-	
 	private OkHttpClient client;
 	private Request request;
 	private Response response;
@@ -41,7 +40,6 @@ public class WebConnector {
 	public void setResponse(Response response) {
 		this.response = response;
 	}
-	
 	
 	
 }
