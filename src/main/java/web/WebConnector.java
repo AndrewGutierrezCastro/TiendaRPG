@@ -23,7 +23,6 @@ public class WebConnector {
 				.addHeader("x-rapidapi-host", "amazon-product-search-api.p.rapidapi.com")
 				.addHeader("x-rapidapi-key", "77827080bbmsh4cdae57bd6c16c7p158252jsn619c63e614c3")
 				.build();
-		
 	}
 	
 	public void execute() {
