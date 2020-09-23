@@ -6,23 +6,11 @@ public class Estadisticas {
 	 * Clase: Estadisticas.
 	 * Atributos: defensa, ataque, velocidad, vida, suerte.
 	 * Funciones: Getters.
-	 * Subclases: Estadistica.
 	 */
 	
-	//Subclases:
-	private class Estadistica{
-		public int valor;
-
-		public Estadistica(int valor) {
-			super();
-			this.valor = valor;
-		}
-			
-		
-	}
 
 	//Atributos:
-	Estadistica defensa, ataque, velocidad, vida, suerte;
+	private Estadistica defensa, ataque, velocidad, vida, suerte;
 
 	//Constructor:
 	public Estadisticas() {

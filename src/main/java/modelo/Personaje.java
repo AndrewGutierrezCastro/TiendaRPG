@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Personaje {
 
@@ -14,7 +15,7 @@ public class Personaje {
 	//Atributos:
 	private ArrayList <Item> inventario;
 	private Estadisticas estadisticas;
-	
+	private HashMap<Tipo, Item> equipado;
 	
 	//Constructor:
 	public Personaje() {
