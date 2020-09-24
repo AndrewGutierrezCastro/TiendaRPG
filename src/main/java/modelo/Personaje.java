@@ -34,4 +34,7 @@ public class Personaje {
 		
 	}
 	
+	public void equipar(Item pEquipo) {
+		//TODO hacer el metodo equipar
+	}
 }
