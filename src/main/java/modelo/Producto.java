@@ -26,14 +26,12 @@ public class Producto {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return  "item_id: " + getItem_id() +"\n"
 				+"pic_url: " + getPic_url() +"\n"
 				+"url: " + getUrl() +"\n"
 				+"title: " + getTitle() +"\n"
 				+"price: " + getPrice();
 	}
-
 
 	public String getItem_id() {
 		return item_id;
