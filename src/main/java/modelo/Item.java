@@ -3,16 +3,26 @@ package modelo;
 public class Item {
 	/*
 	 * Clase: Item.
-	 * Atributos: estadistica.
+	 * Atributos: estadistica, producto.
 	 * Funciones: Getters and Setter, Constructor.
 	 */
 	private Estadistica estadistica;
 	private Categoria categoria;
 	private Tipo tipo;
+	private Producto producto;
 	
-	public Item(int pValor) {
+	public Item(int pValor, Producto pProducto) {
 
 		this.estadistica = new Estadistica(pValor);
+		this.producto = pProducto;
+	}
+	
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
 	}
 
 	public Estadistica getEstadistica() {
