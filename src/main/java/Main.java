@@ -1,7 +1,8 @@
 import java.io.IOException;
+
+import controlador.ControladorTienda;
 import modelo.CreadorObjetos;
 import modelo.DatosEstadisticas;
-import modelo.Dummy;
 import modelo.Estadisticas;
 import modelo.Producto;
 import modelo.Tipo;
