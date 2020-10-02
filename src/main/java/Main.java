@@ -1,19 +1,8 @@
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.List;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-
-import controlador.ControladorTienda;
 import modelo.CreadorObjetos;
-import modelo.Dummy;
 import modelo.Producto;
+import modelo.Tipo;
+
 
 
 public class Main {
@@ -22,16 +11,18 @@ public class Main {
 		
 		System.out.println("Hola mundo");
 		
-		Document doc = Jsoup.parse(Dummy.response);
 		
-		Element products = doc.html(doc.body().child(1).child(1).child(22).child(3).child(0).childNode(0).toString());
 		
-		JsonObject obj = (JsonObject) new JsonParser().parse(products.toString().substring(10)); //Eliminar la parte de RESPONSE
-        
-    	for (Producto producto : CreadorObjetos.getListProducts(obj)) {
-			System.out.println(producto);
-		}
-
+		for (Tipo tipo : Tipo.values()) {
+			System.out.println("----------------------"+tipo.toString()+ "--------------------------\n\n"); 
+			for (Producto producto : CreadorObjetos.getListProducts(tipo)){
+				System.out.println(producto.toString()); 
+			}
+			  
+		 }
+		 
+		
+		
 		
 		//new ControladorTienda();
 		}

@@ -1,0 +1,928 @@
+<body> 
+ <div class="left-menu"> 
+  <div class="content-logo"> <span>WishsterApp Doc</span> 
+  </div> 
+  <div class="content-menu"> 
+   <ul> 
+    <li class="scroll-to-link active" data-target="register"> <a>Register</a> </li> 
+    <li class="scroll-to-link" data-target="verify-otp"> <a>Verify OTP</a> </li> 
+    <li class="scroll-to-link" data-target="register-set-pwd"> <a>Register Set Password</a> </li> 
+    <li class="scroll-to-link" data-target="social-login"> <a>Social Login</a> </li> 
+    <li class="scroll-to-link" data-target="save-security-question"> <a>Save Security Question</a> </li> 
+    <li class="scroll-to-link" data-target="login"> <a>Login</a> </li> 
+    <li class="scroll-to-link" data-target="profile"> <a>Profile</a> </li> 
+    <li class="scroll-to-link" data-target="update-profile"> <a>Update Profile</a> </li> 
+    <li class="scroll-to-link" data-target="update-profile-img"> <a>Update Profile Image</a> </li> 
+    <li class="scroll-to-link" data-target="change-password"> <a>Change Password</a> </li> 
+    <li class="scroll-to-link" data-target="security-question"> <a>Security Question</a> </li> 
+    <li class="scroll-to-link" data-target="forget-password"> <a>Forget Password</a> </li> 
+    <li class="scroll-to-link" data-target="reset-password"> <a>Reset Password</a> </li> 
+    <li class="scroll-to-link" data-target="all-users-list"> <a>All Users List</a> </li> 
+    <li class="scroll-to-link" data-target="requests-users-list"> <a>Requests Users List</a> </li> 
+    <li class="scroll-to-link" data-target="blocked-users-list"> <a>Blocked Users List</a> </li> 
+    <li class="scroll-to-link" data-target="friend-request"> <a>Friend Request</a> </li> 
+    <li class="scroll-to-link" data-target="accept-friend-request"> <a>Accept Friend Request</a> </li> 
+    <li class="scroll-to-link" data-target="reject-friend-request"> <a>Reject Friend Request</a> </li> 
+    <li class="scroll-to-link" data-target="unfriend"> <a>Unfriend</a> </li> 
+    <li class="scroll-to-link" data-target="block-friend"> <a>Block Friend</a> </li> 
+    <li class="scroll-to-link" data-target="unblock-friend"> <a>Unblock Friend</a> </li> 
+    <li class="scroll-to-link" data-target="get-products"> <a>Scan to Get Products</a> </li> 
+    <li class="scroll-to-link" data-target="save-wishlist"> <a>Save to Wishlist</a> </li> 
+    <li class="scroll-to-link" data-target="get-wishlist"> <a>Get Wishlist</a> </li> 
+    <li class="scroll-to-link" data-target="delete-wishlist"> <a>Delete from Wishlist</a> </li> 
+   </ul> 
+  </div> 
+ </div> 
+ <div class="content-page"> 
+  <div class="content-code"></div> 
+  <div class="content"> 
+   <div class="overflow-hidden content-section" id="content-register"> 
+    <h1 id="register">Register</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/register<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "type": "email",
+                "email_mobile": "ripan.pal@exnovation.in"
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "OTP successfully sent to your email",
+                "data": {}
+              }
+            </code><br><br><br><br>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-verify-otp"> 
+    <h1 id="verify-otp">Verify OTP</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/verify_otp<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "email": "ripan.pal@exnovation.in",
+                "otp": your_otp
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "OTP matched",
+                "data": {}
+              }
+            </code>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-register-set-pwd"> 
+    <h1 id="register-set-pwd">Register Set Password</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/register_set_pwd<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "type": "email",
+                "email_mobile": "ripan.pal@exnovation.in",
+                "name": "Ripan Pal",
+                "birthday": "01-31-1990",
+                "password": "Test@123"
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                HEADER:
+                {
+                  token: token_here
+                }
+                BODY:
+                {
+                  "status": true,
+                  "message": "Registered successfully",
+                  "data": {
+                    "id": 1,
+                    "name": "Ripan Pal",
+                    "gender": "",
+                    "email": "ripan.pal@exnovation.in",
+                    "mobile": "",
+                    "username": "ripan.pal",
+                    "birthday": "01-31-1990",
+                    "address": "",
+                    "profile_img": "",
+                    "status": 1
+                  }
+                }
+              }
+            </code>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-social-login"> 
+    <h1 id="social-login">Social Login</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/social_login<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "social_type": "google",
+                "social_id": your_google_id,
+                "name": "Ripan Pal",
+                "email": "ripan.pal@exnovation.in",
+                "mobile": "",
+                "birthday": "01-31-1990",
+                "profile_img_url": your_google_profile_img_url
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                HEADER:
+                {
+                  token: token_here
+                }
+                BODY:
+                {
+                  "status": true,
+                  "message": "Logged in through google",
+                  "data": {
+                    "id": 1,
+                    "name": "Ripan Pal",
+                    "gender": "",
+                    "email": "ripan.pal@exnovation.in",
+                    "mobile": "",
+                    "username": "ripan.pal",
+                    "birthday": "01-31-1990",
+                    "address": "",
+                    "profile_img": profile_image_url,
+                    "status": 1
+                  }
+                }
+              }
+            </code>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-save-security-question"> 
+    <h1 id="save-security-question">Save Security Question</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/save_security_qtn<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json </p> 
+    <pre>            <code class="json">
+              REQUEST:
+                {
+                  "user_id": "1",
+                  "security_qtn1": "Which would be your favorite drink?",
+                  "security_qtn2": "What is your favorite brand?",
+                  "security_qtn3": "What is your favorite sport?",
+                  "security_qtn4": "Which of the following best describes you?",
+                  "security_ans1": "Wine",
+                  "security_ans2": "Nike",
+                  "security_ans3": "Cricket",
+                  "security_ans4": "Vegan"
+                }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                HEADER:
+                {
+                  token: token_here
+                }
+                BODY:
+                {
+                  "status": true,
+                  "message": "Security question successfully saved",
+                  "data": {
+                    "id": 1,
+                    "name": "Ripan Pal",
+                    "gender": "",
+                    "email": "ripan.pal@exnovation.in",
+                    "mobile": "",
+                    "username": "ripan.pal",
+                    "birthday": "01-31-1990",
+                    "address": "",
+                    "profile_img": "",
+                    "status": 0
+                  }
+                }
+              }
+            </code>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-login"> 
+    <h1 id="login">Login</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/login<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "email": "ripan.pal@exnovation.in",
+                "password": "Test@123"
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                HEADER:
+                {
+                  token: token_here
+                }
+                BODY:
+                {
+                  "status": true,
+                  "message": "Successfully logged in",
+                  "data": {
+                    "id": 1,
+                    "name": "Ripan Pal",
+                    "gender": "",
+                    "email": "ripan.pal@exnovation.in",
+                    "mobile": "",
+                    "username": "ripan.pal",
+                    "address": "",
+                    "birthday": "01-31-1990",
+                    "profile_img": "",
+                    "status": 0
+                  }
+                }
+              }
+            </code>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-profile"> 
+    <h1 id="profile">Profile</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/profile<br> <strong>Method:</strong> GET<br> <strong>Header:</strong><br> Content-Type: application/json<br> Authorization: Bearer your_token_here </p> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "Your profile data",
+                "data": {
+                  "id": 1,
+                  "name": "Ripan Pal",
+                  "gender": "",
+                  "email": "ripan.pal@exnovation.in",
+                  "mobile": "",
+                  "username": "ripan.pal",
+                  "address": "",
+                  "birthday": "01-31-1990",
+                  "profile_img": "",
+                  "status": 0
+                }
+              }
+            </code>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-update-profile"> 
+    <h1 id="update-profile">Update Profile</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/update_profile<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json<br> Authorization: Bearer your_token_here </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "name": "Ripan Pal",
+                "gender": "Male",
+                "email": "ripan.pal@exnovation.in",
+                "mobile": "8017770965",
+                "username": "ripan.pal",
+                "address": "Kolkata",
+                "birthday": "31-01-1990"
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "Profile successfully updated",
+                "data": {
+                  "id": 1,
+                  "name": "Ripan Pal",
+                  "gender": "Male",
+                  "email": "ripan.pal@exnovation.in",
+                  "mobile": "8017770965",
+                  "username": "ripan.pal",
+                  "address": "Kolkata",
+                  "birthday": "01-31-1990",
+                  "profile_img": "",
+                  "status": 0
+                }
+              }
+            </code>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-update-profile-img"> 
+    <h1 id="update-profile-img">Update Profile Image</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/update_profile_img<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Authorization: Bearer your_token_here </p> 
+    <pre>            <code class="json">
+              REQUEST:
+                multipart or form_data:
+                  "profile_img": image_file
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "Profile image successfully updated",
+                "data": {
+                  "id": 1,
+                  "name": "Ripan Pal",
+                  "gender": "Male",
+                  "email": "ripan.pal@exnovation.in",
+                  "mobile": "8017770965",
+                  "username": "ripan.pal",
+                  "address": "Kolkata",
+                  "birthday": "01-31-1990",
+                  "profile_img": profile_image_url,
+                  "status": 0
+                }
+              }
+            </code>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-change-password"> 
+    <h1 id="change-password">Change Password</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/change_password<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json<br> Authorization: Bearer your_token_here </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "old_password":"Test@123",
+                "new_password":"Test@111"
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "Password changed successfully",
+                "data": {
+                  "id": 1,
+                  "name": "Ripan Pal",
+                  "gender": "Male",
+                  "email": "ripan.pal@exnovation.in",
+                  "mobile": "8017770965",
+                  "username": "ripan.pal",
+                  "address": "Kolkata",
+                  "birthday": "01-31-1990",
+                  "profile_img": profile_image_url,
+                  "status": 0
+                }
+              }
+            </code>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-security-question"> 
+    <h1 id="security-question">Security Question</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/security_qtn<br> <strong>Method:</strong> GET<br> <strong>Header:</strong><br> Content-Type: application/json </p> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "Security questions list",
+                "data": [
+                  {
+                    "id": 1,
+                    "question": "Which would be your favorite drink?",
+                    "option1": "Wine",
+                    "option2": "Beer",
+                    "option3": "Fruit Juice",
+                    "option4": "Water"
+                  },
+                  {
+                    "id": 2,
+                    "question": "What is your favorite brand?",
+                    "option1": "Lee Cooper",
+                    "option2": "Nike",
+                    "option3": "Adidas",
+                    "option4": "Puma"
+                  },
+                  {
+                    "id": 3,
+                    "question": "What is your favorite sport?",
+                    "option1": "MotoGP",
+                    "option2": "Golf",
+                    "option3": "Cricket",
+                    "option4": "Poker"
+                  },
+                  {
+                    "id": 4,
+                    "question": "Which of the following best describes you?",
+                    "option1": "Vegetarian",
+                    "option2": "All foods",
+                    "option3": "Meat eater",
+                    "option4": "Vegan"
+                  }
+                ]
+              }
+            </code>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-forget-password"> 
+    <h1 id="forget-password">Forget Password</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/forget_pwd<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "type":"email",
+                "email_mobile":"ripan.pal@exnovation.in"
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "OTP successfully sent to your email",
+                "data": {
+                  "id": 1,
+                  "name": "Ripan Pal",
+                  "gender": "Male",
+                  "email": "ripan.pal@exnovation.in",
+                  "mobile": "8017770965",
+                  "username": "ripan.pal",
+                  "address": "Kolkata",
+                  "birthday": "01-31-1990",
+                  "profile_img": profile_image_url,
+                  "status": 0
+                }
+              }
+            </code>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-reset-password"> 
+    <h1 id="reset-password">Reset Password</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/reset_pwd<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "type":"email",
+                "email_mobile":"ripan.pal@exnovation.in",
+                "new_password":"Test@123"
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "Password reset successfully",
+                "data": {
+                  "id": 1,
+                  "name": "Ripan Pal",
+                  "gender": "Male",
+                  "email": "ripan.pal@exnovation.in",
+                  "mobile": "8017770965",
+                  "username": "ripan.pal",
+                  "address": "Kolkata",
+                  "birthday": "01-31-1990",
+                  "profile_img": profile_image_url,
+                  "status": 0
+                }
+              }
+            </code>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-all-users-list"> 
+    <h1 id="all-users-list">All Users List</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/all_users_list?page=1&amp;search=biswajit<br> <strong>Method:</strong> GET<br> <strong>Header:</strong><br> Content-Type: application/json<br> Authorization: Bearer your_token_here </p> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "All users list",
+                "data": {
+                  "currentpage": "1",
+                  "nextpage": "0",
+                  "totalpages": 1,
+                  "totalrecords": 2,
+                  "perpage": "20",
+                  "all_users": [
+                    {
+                      "id": 17,
+                      "name": "Biswajit Deb",
+                      "gender": "Male",
+                      "email": "biswajit.deb@exnovation.com",
+                      "mobile": "8617293987",
+                      "username": "biswajit.deb",
+                      "address": "Kolkata",
+                      "birthday": "01-11-1990",
+                      "profile_img": profile_image_url,
+                      "status": 0
+                    },
+                    {
+                      "id": 4,
+                      "name": "Biswajit Sarkar",
+                      "gender": "Male",
+                      "email": "msg2biswa@hotmail.com",
+                      "mobile": "8566379923",
+                      "username": "msg2biswa",
+                      "address": "Surat",
+                      "birthday": "12-04-1983",
+                      "profile_img": profile_image_url,
+                      "status": 0
+                    }
+                  ]
+                }
+              }
+            </code>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-requests-users-list"> 
+    <h1 id="requests-users-list">Requests Users List</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/requests_users_list?page=1&amp;search=<br> <strong>Method:</strong> GET<br> <strong>Header:</strong><br> Content-Type: application/json<br> Authorization: Bearer your_token_here </p> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "Requests users list",
+                "data": {
+                  "currentpage": "1",
+                  "nextpage": "0",
+                  "totalpages": 1,
+                  "totalrecords": 2,
+                  "perpage": "20",
+                  "all_users": [
+                    {
+                      "id": 13,
+                      "name": "Sanjay Chatterjee",
+                      "gender": "Male",
+                      "email": "schatterjee1995@gmail.com",
+                      "mobile": "7665887765",
+                      "username": "schatterjee1995",
+                      "address": "Kolkata",
+                      "birthday": "11-14-1995",
+                      "profile_img": profile_image_url,
+                      "status": 0
+                    },
+                    {
+                      "id": 4,
+                      "name": "Sunny Dubey",
+                      "gender": "Male",
+                      "email": "dubeyv23@gmail.com",
+                      "mobile": "9866357533",
+                      "username": "dubeyv23",
+                      "address": "Patna",
+                      "birthday": "08-08-1994",
+                      "profile_img": profile_image_url,
+                      "status": 0
+                    }
+                  ]
+                }
+              }
+            </code>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-blocked-users-list"> 
+    <h1 id="blocked-users-list">Blocked Users List</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/blocked_users_list?page=1&amp;search=<br> <strong>Method:</strong> GET<br> <strong>Header:</strong><br> Content-Type: application/json<br> Authorization: Bearer your_token_here </p> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "Blocked users list",
+                "data": {
+                  "currentpage": "1",
+                  "nextpage": "0",
+                  "totalpages": 1,
+                  "totalrecords": 2,
+                  "perpage": "20",
+                  "all_users": [
+                    {
+                      "id": 17,
+                      "name": "Abhijit Biswas",
+                      "gender": "Male",
+                      "email": "abhijitbiswas@gmail.com",
+                      "mobile": "9887556432",
+                      "username": "abhijitbiswas",
+                      "address": "Kolkata",
+                      "birthday": "12-21-1993",
+                      "profile_img": profile_image_url,
+                      "status": 0
+                    },
+                    {
+                      "id": 4,
+                      "name": "Rony Saha",
+                      "gender": "Male",
+                      "email": "rony.saha@exnovation.in",
+                      "mobile": "9748089020",
+                      "username": "rony.saha",
+                      "address": "Kolkata",
+                      "birthday": "05-11-1990",
+                      "profile_img": profile_image_url,
+                      "status": 0
+                    }
+                  ]
+                }
+              }
+            </code>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-friend-request"> 
+    <h1 id="friend-request">Friend Request</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/friend_request<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json<br> Authorization: Bearer your_token_here </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "frnd_uname": friend_username_here
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "Friend request successfully sent to Friend_Name",
+                "data": {}
+              }
+            </code><br><br><br><br>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-accept-friend-request"> 
+    <h1 id="accept-friend-request">Accept Friend Request</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/accept_friend_request<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json<br> Authorization: Bearer your_token_here </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "frnd_uname": friend_username_here
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "You accept the friend request from Friend_Name",
+                "data": {}
+              }
+            </code><br><br><br><br>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-reject-friend-request"> 
+    <h1 id="reject-friend-request">Reject Friend Request</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/reject_friend_request<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json<br> Authorization: Bearer your_token_here </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "frnd_uname": friend_username_here
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "You reject the friend request from Friend_Name",
+                "data": {}
+              }
+            </code><br><br><br><br>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-unfriend"> 
+    <h1 id="unfriend">Unfriend</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/unfriend<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json<br> Authorization: Bearer your_token_here </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "frnd_uname": friend_username_here
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "Friend_Name unfriend successfully",
+                "data": {}
+              }
+            </code><br><br><br><br>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-block-friend"> 
+    <h1 id="block-friend">Block Friend</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/block_friend<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json<br> Authorization: Bearer your_token_here </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "frnd_uname": friend_username_here
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "Friend_Name blocked successfully",
+                "data": {}
+              }
+            </code><br><br><br><br>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-unblock-friend"> 
+    <h1 id="unblock-friend">Unblock Friend</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/unblock_friend<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json<br> Authorization: Bearer your_token_here </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "frnd_uname": friend_username_here
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "Friend_Name unblocked successfully",
+                "data": {}
+              }
+            </code><br><br><br><br>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-get-products"> 
+    <h1 id="get-products">Scan to Get Products</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/get_products<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "scancode": isbn_upc_ean_code_here
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "Products list",
+                "data": [
+                  {
+                    "item_id": "170953528404",
+                    "pic_url": "https://thumbs1.ebaystatic.com/m/mGdB9Q7QjzU3NzrAGZVY4LA/140.jpg",
+                    "url": "https://www.ebay.com/itm/27g-Fem-Oxy-Life-Bleach-Oxygen-Oxygen-Facial-Skin-Care-Creme-/170953528404",
+                    "title": "27g Fem Oxy Life Bleach Oxygen Oxygen Facial Skin Care Creme",
+                    "price": "$8.99"
+                  },
+                  {
+                    "item_id": "303624907369",
+                    "pic_url": "https://thumbs2.ebaystatic.com/m/mYCN-WMLpEPRkGk_GRU9gXA/140.jpg",
+                    "url": "https://www.ebay.com/itm/Sexy-Miss-Santa-Fancy-Dress-Christmas-Costume-UK-Size-6-Paperback-Book-/303624907369",
+                    "title": "Sexy Miss Santa Fancy Dress Christmas Costume (UK Size 6) Paperback Book The",
+                    "price": "$17.36"
+                  },
+                  {
+                    "item_id": "153454286909",
+                    "pic_url": "https://thumbs2.ebaystatic.com/m/mNcjg7SiEMd5qNwIc0lAXYA/140.jpg",
+                    "url": "https://www.ebay.com/itm/MICHAEL-KORS-BAR-PAVE-STATION-CHAIN-NECKLACE-ROSE-GOLD-TONE-60-NEW-/153454286909",
+                    "title": "MICHAEL KORS BAR PAVE STATION CHAIN NECKLACE ROSE GOLD TONE 60\" NEW",
+                    "price": "$59.99"
+                  },
+                  {
+                    "item_id": "402344449250",
+                    "pic_url": "http://pics.ebaystatic.com/aw/pics/express/icons/iconPlaceholder_96x96.gif",
+                    "url": "https://www.ebay.com/itm/Harry-Potter-and-Deathly-Hallows-J-K-Rowling-Paperback-Book-Fast-/402344449250",
+                    "title": "Harry Potter and the Deathly Hallows by J. K. Rowling Paperback Book The Fast",
+                    "price": "$4.8"
+                  },
+                  {
+                    "item_id": "383634973076",
+                    "pic_url": "https://thumbs1.ebaystatic.com/m/mYCN-WMLpEPRkGk_GRU9gXA/140.jpg",
+                    "url": "https://www.ebay.com/itm/Sexy-Miss-Santa-Fancy-Dress-Christmas-Costume-UK-Size-6-Paperback-Book-/383634973076",
+                    "title": "Sexy Miss Santa Fancy Dress Christmas Costume (UK Size 6) Paperback Book The",
+                    "price": "$16.18"
+                  },
+                  {
+                    "item_id": "391916068437",
+                    "pic_url": "https://thumbs2.ebaystatic.com/m/mjhd116Ai9wlZ_btAF79ywQ/140.jpg",
+                    "url": "https://www.ebay.com/itm/Harry-Potter-and-Deathly-Hallows-Book-7-Adu-J-K-Rowling-Paperback-/391916068437",
+                    "title": "Harry Potter and the Deathly Hallows (Book 7) [Adu... by J. K. Rowling Paperback",
+                    "price": "$9.26"
+                  },
+                  {
+                    "item_id": "392190175796",
+                    "pic_url": "https://thumbs1.ebaystatic.com/m/mAnqmM61sU4RgxmMh7TS9Rw/140.jpg",
+                    "url": "https://www.ebay.com/itm/1st-ED-ADULT-PAPERBACK-BOOK-7-HARRY-POTTER-AND-DEATHLY-HALLOWS-J-K-ROWLING-/392190175796",
+                    "title": "1st ED ADULT PAPERBACK BOOK 7 HARRY POTTER AND THE DEATHLY HALLOWS J.K ROWLING",
+                    "price": "$9.99"
+                  },
+                  {
+                    "item_id": "333061311233",
+                    "pic_url": "https://thumbs2.ebaystatic.com/m/mTv7CN1SXH-5nfQdmQ1DyOw/140.jpg",
+                    "url": "https://www.ebay.com/itm/Harry-Potter-and-Deathly-Hallows-J-K-Rowling-9780747595823-/333061311233",
+                    "title": "Harry Potter and the Deathly Hallows By J. K. Rowling. 9780747595823",
+                    "price": "$13.6"
+                  },
+                  {
+                    "item_id": "352785897773",
+                    "pic_url": "https://thumbs2.ebaystatic.com/m/mDI6JU_9e2s7olgJiMxnY_w/140.jpg",
+                    "url": "https://www.ebay.com/itm/Castle-clash-DE-310k-HEROES-LIKE-LAVA-LAZU-KOSMO-AND-MORE-/352785897773",
+                    "title": "Castle clash DE, 310k+| HEROES LIKE LAVA, LAZU, KOSMO AND MORE",
+                    "price": "$120.0"
+                  },
+                  {
+                    "item_id": "392442680239",
+                    "pic_url": "https://thumbs4.ebaystatic.com/m/mjhd116Ai9wlZ_btAF79ywQ/140.jpg",
+                    "url": "https://www.ebay.com/itm/Harry-Potter-and-Deathly-Hallows-J-K-Rowling-Paperback-Book-Fast-/392442680239",
+                    "title": "Harry Potter and the Deathly Hallows by J. K. Rowling Paperback Book The Fast",
+                    "price": "$9.26"
+                  },
+                  {
+                    "item_id": "383599680025",
+                    "pic_url": "https://thumbs2.ebaystatic.com/m/mjhd116Ai9wlZ_btAF79ywQ/140.jpg",
+                    "url": "https://www.ebay.com/itm/Harry-Potter-and-Deathly-Hallows-J-K-Rowling-Paperback-Book-Fast-/383599680025",
+                    "title": "Harry Potter and the Deathly Hallows by J. K. Rowling Paperback Book The Fast",
+                    "price": "$9.26"
+                  }
+                ]
+              }
+            </code><br><br><br><br>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-save-wishlist"> 
+    <h1 id="save-wishlist">Save to Wishlist</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/save_wishlist<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json<br> Authorization: Bearer your_token_here </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "item_id": "170953528404",
+                "pic_url": "https://thumbs1.ebaystatic.com/m/mGdB9Q7QjzU3NzrAGZVY4LA/140.jpg",
+                "url": "https://www.ebay.com/itm/27g-Fem-Oxy-Life-Bleach-Oxygen-Oxygen-Facial-Skin-Care-Creme-/170953528404",
+                "title": "27g Fem Oxy Life Bleach Oxygen Oxygen Facial Skin Care Creme",
+                "price": "$8.99"
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "Product successfully added to wishlist",
+                "data": {
+                  "id": 1,
+                  "user_id": 1,
+                  "item_id": "170953528404",
+                  "pic_url": "https://thumbs1.ebaystatic.com/m/mGdB9Q7QjzU3NzrAGZVY4LA/140.jpg",
+                  "url": "https://www.ebay.com/itm/27g-Fem-Oxy-Life-Bleach-Oxygen-Oxygen-Facial-Skin-Care-Creme-/170953528404",
+                  "title": "27g Fem Oxy Life Bleach Oxygen Oxygen Facial Skin Care Creme",
+                  "price": "$8.99"
+                }
+              }
+            </code><br><br><br><br>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-get-wishlist"> 
+    <h1 id="get-wishlist">Get Wishlist</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/get_wishlist<br> <strong>Method:</strong> GET<br> <strong>Header:</strong><br> Content-Type: application/json<br> Authorization: Bearer your_token_here </p> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "Your wishlist",
+                "data": [
+                  {
+                    "id": 1,
+                    "user_id": 1,
+                    "item_id": "170953528404",
+                    "pic_url": "https://thumbs1.ebaystatic.com/m/mGdB9Q7QjzU3NzrAGZVY4LA/140.jpg",
+                    "url": "https://www.ebay.com/itm/27g-Fem-Oxy-Life-Bleach-Oxygen-Oxygen-Facial-Skin-Care-Creme-/170953528404",
+                    "title": "27g Fem Oxy Life Bleach Oxygen Oxygen Facial Skin Care Creme",
+                    "price": "$8.99"
+                  },
+                  {
+                    "id": 2,
+                    "user_id": 1,
+                    "item_id": "153454286909",
+                    "pic_url": "https://thumbs2.ebaystatic.com/m/mNcjg7SiEMd5qNwIc0lAXYA/140.jpg",
+                    "url": "https://www.ebay.com/itm/MICHAEL-KORS-BAR-PAVE-STATION-CHAIN-NECKLACE-ROSE-GOLD-TONE-60-NEW-/153454286909",
+                    "title": "MICHAEL KORS BAR PAVE STATION CHAIN NECKLACE ROSE GOLD TONE 60\" NEW",
+                    "price": "$59.99"
+                  }
+                ]
+              }
+            </code><br><br><br><br>
+          </pre> 
+   </div> 
+   <div class="overflow-hidden content-section" id="content-delete-wishlist"> 
+    <h1 id="delete-wishlist">Delete from Wishlist</h1> 
+    <p> <strong>URL:</strong> https://domax.xyz/wishsterapp/api/delete_wishlist<br> <strong>Method:</strong> POST<br> <strong>Header:</strong><br> Content-Type: application/json<br> Authorization: Bearer your_token_here </p> 
+    <pre>            <code class="json">
+              REQUEST:
+              {
+                "item_id": "170953528404"
+              }
+            </code>
+          </pre> 
+    <pre>            <code class="json">
+              RESPONSE:
+              {
+                "status": true,
+                "message": "Product successfully deleted from wishlist",
+                "data": {}
+              }
+            </code><br><br><br><br>
+          </pre> 
+   </div> 
+  </div> 
+  <div class="content-code"></div> 
+ </div> 
+ <script src="js/libs/jquery.js"></script> 
+ <script src="js/script.js"></script>  
+</body>

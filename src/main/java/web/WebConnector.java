@@ -6,7 +6,16 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import archivo.ManejoArchivo;
+
 public class WebConnector {
+	/*	NO USAR......
+	 * WebConnector webconnector = new WebConnector();
+	 * webconnector.createRequest("keyword"); webconnector.execute();
+	 * String data = webconnector.getResponse().body().string(); 
+	 * ManejoArchivo.writeText("ARCO", data);
+	 */
+	
 	private OkHttpClient client;
 	private Request request;
 	private Response response;
@@ -17,11 +26,15 @@ public class WebConnector {
 		
 		client = new OkHttpClient();
 		
+		request = null;
+	}
+	
+	public void createRequest(String pKeyword) {
 		request = new Request.Builder()
-				.url("https://amazon-product-search-api.p.rapidapi.com/")
+				.url("https://amazon-product-reviews-keywords.p.rapidapi.com/product/search?category=aps&country=US&keyword="+pKeyword)
 				.get()
-				.addHeader("x-rapidapi-host", "amazon-product-search-api.p.rapidapi.com")
-				.addHeader("x-rapidapi-key", "77827080bbmsh4cdae57bd6c16c7p158252jsn619c63e614c3")
+				.addHeader("x-rapidapi-host", "amazon-product-reviews-keywords.p.rapidapi.com")
+				.addHeader("x-rapidapi-key", "a62d61c17bmsh1029f76a7d182bfp1d92c8jsn53ae89fe0281")
 				.build();
 	}
 	
@@ -32,7 +45,7 @@ public class WebConnector {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public Response getResponse() {
 		return response;
 	}
