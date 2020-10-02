@@ -1,6 +1,6 @@
 package modelo;
 
-public class Estadisticas {
+public class Estadisticas implements DatosEstadisticas{
 	
 	/*
 	 * Clase: Estadisticas.
@@ -16,11 +16,11 @@ public class Estadisticas {
 	public Estadisticas() {
 		super();
 		
-		this.ataque = new Estadistica(50);
-		this.defensa = new Estadistica(80);
-		this.velocidad = new Estadistica(10);
-		this.vida = new Estadistica(100);
-		this.suerte = new Estadistica(30);
+		this.ataque = new Estadistica(DatosEstadisticas.ataque);
+		this.defensa = new Estadistica(DatosEstadisticas.defensa);
+		this.velocidad = new Estadistica(DatosEstadisticas.velocidad);
+		this.vida = new Estadistica(DatosEstadisticas.vida);
+		this.suerte = new Estadistica(DatosEstadisticas.suerte);
 		
 	}
 

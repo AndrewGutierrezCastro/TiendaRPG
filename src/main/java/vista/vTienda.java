@@ -1,28 +1,57 @@
 package vista;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import java.awt.BorderLayout;
 import javax.swing.JPanel;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JTabbedPane;
 
 import controlador.ControladorTienda;
 
-import java.awt.Font;
-
 public class vTienda {
 
 	private JFrame frame;
+	
 	public JScrollPane 
-			srcllPnArmas, 
-			scrllPnArmadura,
+			scrllPnTienda,
 			srcllPnInventario;
+	
+	public JTabbedPane
+			tabbedPane;
+	
 	public JButton 
 			btnVender,
 			btnComprar;
+	
+	public JLabel
+			lblAtaque,
+			lblDefensa,
+			lblVelocidad,
+			lblVida,
+			lblSuerte,
+			lblGategoria,
+			lblEstadisticas;
+	
+	public JPanel
+			panelTienda,
+			panelTienda2,
+			panelInventario,
+			panelInventario2,
+			panelPersonaje;
+	
+	public JComboBox
+			comboBoxSeleccion;
+	
+	public Image
+			img_Fondo;
 	
 	private ControladorTienda controlador;
 	/**
@@ -44,44 +73,94 @@ public class vTienda {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 900, 450);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(501, 22, 380, 389);
-		frame.getContentPane().add(panel_1);
-		panel_1.setLayout(null);
+		//PROPIEDADES DE LAS IMAGENES
+		this.img_Fondo = new ImageIcon(getClass().getResource("/Imagenes/Tienda_interior.png")).getImage();
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(411, 22, 80, 135);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
+		//PROPIEDADES DEL FRAME
+		this.frame = new JFrame();
+		this.frame.setBounds(100, 100, 600, 550);
+		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frame.getContentPane().setLayout(null);
+		this.frame.setLocationRelativeTo(null);
+		this.frame.setTitle("Tienda RPG");
+		this.frame.setResizable(false);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 400, 400);
+		
+		
+		//PROPIEDADES DEL JTABBEDPANE
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(15, 10, 300, 480);
 		frame.getContentPane().add(tabbedPane);
 		
-		btnComprar = new JButton("Comprar");
-		btnComprar.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnComprar.setBounds(0, 0, 80, 50);
-		panel.add(btnComprar);
 		
-		btnVender = new JButton("Vender");
-		btnVender.setBounds(0, 80, 80, 50);
-		panel.add(btnVender);
 		
-		srcllPnArmas = new JScrollPane();
-		tabbedPane.addTab("Armas", null, srcllPnArmas, null);
+		//PROPIEDADES DE LOS PANELES
+		this.panelTienda = ComponentesUI.getPanel(null,0, 0, 0, 0);
+		this.panelInventario = ComponentesUI.getPanel(Color.red,0, 0, 0, 0);
 		
-		scrllPnArmadura = new JScrollPane();
-		tabbedPane.addTab("Armadura", null, scrllPnArmadura, null);
+		this.panelTienda2 = ComponentesUI.getPanel(Color.green,10, 50, 275, 365);
+		this.panelTienda.add(this.panelTienda2);
+		
+		this.panelPersonaje = ComponentesUI.getPanel(Color.cyan, 330, 30, 240, 460);
+		this.frame.add(this.panelPersonaje);
+		
+		
+		
+		//PROPIEDADES DE LOS SCROLLPANE
+		scrllPnTienda = new JScrollPane();
+		tabbedPane.addTab("Tienda", null, this.panelTienda, null);
 		
 		srcllPnInventario = new JScrollPane();
-		srcllPnInventario.setBounds(0, 0, 195, 389);
-		panel_1.add(srcllPnInventario);
+		tabbedPane.addTab("Inventario", null, this.panelInventario, null);
+		
+		
+		
+		//PROPIEDADES DE LOS LABELS		
+		this.lblGategoria = ComponentesUI.getLabel("Seleccione la Categoria: ",10,10,150,20);
+		this.panelTienda.add(this.lblGategoria);
+		
+		this.lblEstadisticas = ComponentesUI.getLabel("   ESTADISTICAS DEL PERSONAJE",10,20,200,20);
+		this.panelPersonaje.add(this.lblEstadisticas);
+		
+		this.lblAtaque = ComponentesUI.getLabel("Ataque: ",10,240,200,20);
+		this.panelPersonaje.add(this.lblAtaque);
+
+		this.lblDefensa = ComponentesUI.getLabel("Defensa: ",10,280,200,20);
+		this.panelPersonaje.add(this.lblDefensa);
+		
+		this.lblVelocidad = ComponentesUI.getLabel("Velocidad: ",10,320,200,20);
+		this.panelPersonaje.add(this.lblVelocidad);
+		
+		this.lblVida = ComponentesUI.getLabel("Vida: ",10,360,200,20);
+		this.panelPersonaje.add(this.lblVida);
+		
+		this.lblSuerte = ComponentesUI.getLabel("Suerte: ",10,400,200,20);
+		this.panelPersonaje.add(this.lblSuerte);
+		
+		
+		
+		//PROPIEDADES DE LOS BOTONES
+		this.btnComprar = ComponentesUI.getButton("Comprar",10, 425, 80, 20);
+		this.panelTienda.add(this.btnComprar);
+		
+		this.btnVender = ComponentesUI.getButton("Vender",100, 425, 80, 20);
+		this.panelTienda.add(this.btnVender);
+		
+		
+
+		//PROPIEDADES DE LOS COMBOBOX
+		this.comboBoxSeleccion = new JComboBox <>();
+		this.comboBoxSeleccion.setBounds(160, 10, 100, 20);
+		this.comboBoxSeleccion.setFont(new Font("Arial", Font.PLAIN, 11));
+		this.comboBoxSeleccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Armas", "Armaduras", "Pociones"}));
+		this.panelTienda.add(this.comboBoxSeleccion);
+
+		
+		
+		//INICIALIZACION DE LA PANTALLA
 		frame.setVisible(true);
 	}
 	
@@ -96,4 +175,6 @@ public class vTienda {
 		btnVender.setActionCommand("VENDER");
 		btnComprar.setActionCommand("COMPRAR");
 	}
+	
 }
+

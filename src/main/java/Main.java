@@ -12,7 +12,9 @@ import com.google.gson.reflect.TypeToken;
 
 import controlador.ControladorTienda;
 import modelo.CreadorObjetos;
+import modelo.DatosEstadisticas;
 import modelo.Dummy;
+import modelo.Estadisticas;
 import modelo.Producto;
 
 
@@ -20,7 +22,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		
-		System.out.println("Hola mundo");
+		/*System.out.println("Hola mundo");
 		
 		Document doc = Jsoup.parse(Dummy.response);
 		
@@ -30,9 +32,10 @@ public class Main {
         
     	for (Producto producto : CreadorObjetos.getListProducts(obj)) {
 			System.out.println(producto);
-		}
+			System.out.println();
+		}*/
 
 		
-		//new ControladorTienda();
+		new ControladorTienda();
 		}
 }
