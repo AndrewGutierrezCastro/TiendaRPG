@@ -1,5 +1,8 @@
 import java.io.IOException;
 import modelo.CreadorObjetos;
+import modelo.DatosEstadisticas;
+import modelo.Dummy;
+import modelo.Estadisticas;
 import modelo.Producto;
 import modelo.Tipo;
 
@@ -9,7 +12,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		
-		System.out.println("Hola mundo");
+		/*System.out.println("Hola mundo");
 		
 		
 		
@@ -20,10 +23,10 @@ public class Main {
 			}
 			  
 		 }
-		 
+		 */
 		
 		
 		
-		//new ControladorTienda();
+		new ControladorTienda();
 		}
 }
