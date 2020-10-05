@@ -24,8 +24,8 @@ public class CreadorObjetos {
     	return gson.fromJson(data, tipoListaEmpleados); //crear la lista de los productos
 	}
 	
-	public static List<Producto> getListProducts(Tipo tipo){
-		String data = ManejoArchivo.readText(tipo.toString());
+	public static List<Producto> getListProducts(String tipo){
+		String data = ManejoArchivo.readText(tipo);
 		Document doc = Jsoup.parse(data);
 		Element products = doc.html(doc.body().toString());
 		JsonObject obj = (JsonObject) new JsonParser().parse(products.toString());

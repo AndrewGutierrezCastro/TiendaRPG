@@ -13,18 +13,18 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		
-		/*System.out.println("Hola mundo");
+		System.out.println("Hola mundo");
 		
 		
 		
-		for (Tipo tipo : Tipo.values()) {
-			System.out.println("----------------------"+tipo.toString()+ "--------------------------\n\n"); 
-			for (Producto producto : CreadorObjetos.getListProducts(tipo)){
+		/*for (Tipo tipo : Tipo.values()) {
+			System.out.println("\n\n----------------------"+tipo.toString()+ "--------------------------"); 
+			
+			for (Producto producto : CreadorObjetos.getListProducts(tipo.toString())){
 				System.out.println(producto.toString()); 
 			}
 			  
-		 }
-		 */
+		 }*/
 		
 		
 		

@@ -26,7 +26,7 @@ public class ComponentesUI {
 		JButton a = new JButton(s);
 		a.setFont(new Font("Arial", Font.PLAIN, 11));
 		a.setBounds(x,y,width,height);
-		a.setEnabled(false);
+		//a.setEnabled(false);
 		return a;
 	}
 	
@@ -34,9 +34,9 @@ public class ComponentesUI {
 	public static JPanel getPanel(Color s, int x, int y, int width, int height){
 		JPanel a = new JPanel();
 		a.setOpaque(true);
-		a.setLayout(null);
 		a.setBackground(s);
 		a.setBounds(x,y,width,height);
+		a.setLayout(null);
 		return a;
 	}
 	

@@ -13,6 +13,7 @@ public class Personaje {
 	 */
 	
 	//Atributos:
+	private int dinero;
 	private ArrayList <Item> inventario;
 	private Estadisticas estadisticas;
 	private HashMap<Tipo, Item> equipado;
@@ -21,6 +22,7 @@ public class Personaje {
 	public Personaje() {
 		super();
 		
+		this.dinero = DatosEstadisticas.dinero;
 		this.inventario = new ArrayList<Item>();
 		this.estadisticas = new Estadisticas();
 		
