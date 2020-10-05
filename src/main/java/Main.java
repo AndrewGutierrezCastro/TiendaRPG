@@ -1,13 +1,10 @@
 import java.io.IOException;
 
+import archivo.ManejoArchivo;
 import controlador.ControladorTienda;
 import modelo.CreadorObjetos;
-import modelo.DatosEstadisticas;
-import modelo.Estadisticas;
 import modelo.Producto;
-import modelo.Tipo;
-
-
+import web.WebConnector;
 
 public class Main {
 
@@ -17,15 +14,19 @@ public class Main {
 		
 		
 		
-		/*for (Tipo tipo : Tipo.values()) {
-			System.out.println("\n\n----------------------"+tipo.toString()+ "--------------------------"); 
-			
-			for (Producto producto : CreadorObjetos.getListProducts(tipo.toString())){
-				System.out.println(producto.toString()); 
-			}
-			  
-		 }*/
+		/*
+		 * for (Tipo tipo : Tipo.values()) {
+		 * System.out.println("\n\n----------------------"+tipo.toString()+
+		 * "--------------------------");
+		 * 
+		 * for (Producto producto : CreadorObjetos.getListProducts("POCION")){
+		 * System.out.println(producto.toString()); }
+		 * 
+		 * }
+		 */
+	
 		
+		 
 		
 		
 		new ControladorTienda();

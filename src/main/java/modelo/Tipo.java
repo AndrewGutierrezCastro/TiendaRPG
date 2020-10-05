@@ -15,5 +15,6 @@ public enum Tipo {
 	ESPADA,
 	HACHA,
 	ARCO,
-	BACULOMAGICO;
+	BACULOMAGICO,
+	POCION;
 }
