@@ -2,7 +2,12 @@ package vista;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -45,5 +50,10 @@ public class ComponentesUI {
 		JComboBox a = new JComboBox<>();
 		return a;
 	}
-
+	
+	//DEVUELVE UN BufferedImage
+	public static BufferedImage getWebImage(URL url) throws IOException {
+		BufferedImage img = ImageIO.read(url);
+		return img;
+	}
 }

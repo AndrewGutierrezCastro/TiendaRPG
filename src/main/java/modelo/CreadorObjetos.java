@@ -16,7 +16,7 @@ import archivo.ManejoArchivo;
 
 public class CreadorObjetos {
 	
-	public static List<Producto> getListProducts(JsonObject obj) {
+	private static List<Producto> getListProducts(JsonObject obj) {
 		Gson gson = new Gson();
 		JsonObject jo = (JsonObject) obj; //Casteo de objeto a objeto Json
         String data = jo.get("products").toString(); //Tener un string que es la info de la parte de data

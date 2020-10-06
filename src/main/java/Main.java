@@ -1,5 +1,7 @@
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
+
 import archivo.ManejoArchivo;
 import controlador.ControladorTienda;
 import modelo.CreadorObjetos;
@@ -19,12 +21,13 @@ public class Main {
 		 * System.out.println("\n\n----------------------"+tipo.toString()+
 		 * "--------------------------");
 		 * 
-		 * for (Producto producto : CreadorObjetos.getListProducts("POCION")){
+		 * for (Producto producto : CreadorObjetos.getListProducts(tipo.toString())){
 		 * System.out.println(producto.toString()); }
 		 * 
 		 * }
 		 */
 	
+		
 		
 		 
 		

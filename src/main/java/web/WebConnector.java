@@ -11,7 +11,8 @@ import archivo.ManejoArchivo;
 public class WebConnector {
 	/*	NO USAR......
 	 * WebConnector webconnector = new WebConnector();
-	 * webconnector.createRequest("keyword"); webconnector.execute();
+	 * webconnector.createRequest("keyword"); 
+	 * webconnector.execute();
 	 * String data = webconnector.getResponse().body().string(); 
 	 * ManejoArchivo.writeText("ARCO", data);
 	 */

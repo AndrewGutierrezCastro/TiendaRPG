@@ -98,7 +98,6 @@ public class vTienda {
 		this.frame.setResizable(false);
 		
 		
-		
 		//PROPIEDADES DEL JTABBEDPANE
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(15, 10, 300, 480);
