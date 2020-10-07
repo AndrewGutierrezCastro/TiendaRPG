@@ -28,15 +28,7 @@ public class Personaje {
 		
 	}
 	
-	public void comprar() {
-		
-	}
-	
-	public void vender() {
-		
-	}
-	
-	public void equipar(Item pEquipo) {
-		//TODO hacer el metodo equipar
+	public Estadisticas getEstadisticas() {
+		return this.estadisticas;
 	}
 }

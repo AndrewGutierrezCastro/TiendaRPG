@@ -6,14 +6,16 @@ public class Item {
 	 * Atributos: estadistica, producto.
 	 * Funciones: Getters and Setter, Constructor.
 	 */
-	private Estadistica estadistica;
-	private Categoria categoria;
+	private Estadistica estadistica1, estadistica2;
+	//private Categoria categoria;
 	private Tipo tipo;
 	private Producto producto;
 	
-	public Item(int pValor, Producto pProducto) {
+	public Item(int pValor, Tipo pTipo, Producto pProducto) {
 
-		this.estadistica = new Estadistica(pValor);
+		this.estadistica1 = new Estadistica(pValor);
+		this.estadistica2 = new Estadistica((int)(pValor/2));
+		this.tipo = pTipo;
 		this.producto = pProducto;
 	}
 	
@@ -21,33 +23,17 @@ public class Item {
 		return producto;
 	}
 
-	public void setProducto(Producto producto) {
-		this.producto = producto;
-	}
 
 	public Estadistica getEstadistica() {
-		return estadistica;
+		return estadistica1;
 	}
-
-	public void setEstadistica(Estadistica estadistica) {
-		this.estadistica = estadistica;
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	
+	public Estadistica getEstadistica2() {
+		return estadistica2;
 	}
 
 	public Tipo getTipo() {
 		return tipo;
 	}
-
-	public void setTipo(Tipo tipo) {
-		this.tipo = tipo;
-	}
-	
-	
+		
 }

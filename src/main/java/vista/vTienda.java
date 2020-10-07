@@ -43,7 +43,7 @@ public class vTienda {
 			lblDefensa,
 			lblVelocidad,
 			lblVida,
-			lblSuerte,
+			lblMagia,
 			lblGategoria,
 			lblSeleccion,
 			lblEstadisticas;
@@ -152,8 +152,8 @@ public class vTienda {
 		this.lblVida = ComponentesUI.getLabel("Vida: "+modelo.DatosEstadisticas.vida,10,360,200,20);
 		this.panelPersonaje.add(this.lblVida);
 		
-		this.lblSuerte = ComponentesUI.getLabel("Suerte: "+modelo.DatosEstadisticas.suerte,10,400,200,20);
-		this.panelPersonaje.add(this.lblSuerte);
+		this.lblMagia = ComponentesUI.getLabel("Magia: "+modelo.DatosEstadisticas.suerte,10,400,200,20);
+		this.panelPersonaje.add(this.lblMagia);
 		
 		
 		
@@ -216,6 +216,8 @@ public class vTienda {
 		this.comboBoxCategoria.addActionListener(controlador);
 		this.comboBoxSeleccion.addActionListener(controlador);
 		
+		//JLIST
+		this.listaCompras.addListSelectionListener(controlador);
 		
 	}
 	
