@@ -17,6 +17,7 @@ public class Item {
 		this.estadistica1 = new Estadistica(pValor, categoria);
 		this.estadistica2 = new Estadistica((int)(pValor/2), categoria);
 		this.tipo = pTipo;
+		this.categoria = categoria;
 		this.producto = pProducto;
 	}
 	

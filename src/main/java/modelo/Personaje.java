@@ -13,7 +13,7 @@ public class Personaje {
 	 */
 	
 	//Atributos:
-	private int dinero;
+	private float dinero;
 	private ArrayList <Item> inventario;
 	private Estadisticas estadisticas;
 	private HashMap<Categoria, Estadistica> hashMapJugadorStats;
@@ -26,6 +26,7 @@ public class Personaje {
 		this.dinero = DatosEstadisticas.dinero;
 		this.inventario = new ArrayList<Item>();
 		this.estadisticas = new Estadisticas();
+		this.equipado = new HashMap<>();
 		this.cargarHashMapEstadisticas();
 	}
 	
@@ -42,6 +43,22 @@ public class Personaje {
 
 	public HashMap<Categoria, Estadistica> getHashMapJugadorStats() {
 		return hashMapJugadorStats;
+	}
+	
+	public float getDinero() {
+		return this.dinero;
+	}
+	
+	public void setDinero(float dinero) {
+		this.dinero = dinero;
+	}
+	
+	public ArrayList<Item> getInventario(){
+		return this.inventario;
+	}
+	
+	public void setInventario(ArrayList<Item> inventario) {
+		this.inventario = inventario;
 	}
 	
 }

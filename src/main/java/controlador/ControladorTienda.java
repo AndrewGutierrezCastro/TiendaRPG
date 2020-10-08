@@ -55,11 +55,11 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 			break;
 			
 		case "VENDER":
-			System.out.println("Parte del VENDER");
+			this.venderItem();
 			break;
 			
 		case "EQUIPAR":
-			System.out.println("Parte del EQUIPAR");
+			this.equiparItem();
 			break;
 			
 		case "CATEGORIA":
@@ -99,6 +99,21 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 		}
 	}
 	
+	private void asignarProductosComprados() {
+		
+		DefaultListModel model = new DefaultListModel();
+		this.ventana.listaInventario.setModel(model);
+		
+		DefaultListModel modelo = (DefaultListModel) this.ventana.listaInventario.getModel();
+		int contador = 1;
+		
+		List<Item> l = this.personaje.getInventario();
+		for (Item item : l) {
+			modelo.addElement(contador+"/ "+"("+item.getCategoria().toString()+") "+item.getProducto().getTitle()); 
+			contador++;
+		}
+	}
+	
 	private void asignarProductosPorTipo() {
 		/*
 		 * FUNCION ENCARGADA DE ASIGNAR LOS PRODUCTOS A LA LISTA DEPENDIENDO DE LA CATEGORIA Y ARMA SELECCIONADA
@@ -126,13 +141,27 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 		 */
 		
 		if (!this.ventana.listaCompras.isSelectionEmpty()) {
+			
 			List<Item> l = this.inventario.get(Categoria.valueOf(this.ventana.comboBoxCategoria.getSelectedItem().toString())).get(Tipo.valueOf(this.ventana.comboBoxSeleccion.getSelectedItem().toString()));
 			Item item = l.get(this.ventana.listaCompras.getSelectedIndex());
-			System.out.println(item.getProducto().getTitle());
+			System.out.println(item.getProducto().getPrice().getCurrent_price());
+			float costo = item.getProducto().getPrice().getCurrent_price();
+			
+			if(costo<this.personaje.getDinero()) {
+				
+				if (!this.personaje.getInventario().contains(item)) {
+					
+					this.personaje.setDinero(this.personaje.getDinero()-costo);
+					this.ventana.lblDinero.setText("Dinero: "+this.personaje.getDinero());
+					this.personaje.getInventario().add(item);
+					this.asignarProductosComprados();
+					System.out.println(this.personaje.getInventario().size());
+					
+				}else {	JOptionPane.showMessageDialog(null, "¡El articulo ya se encuentra en el inventario del personaje!");}
+				
+			}else {	JOptionPane.showMessageDialog(null, "¡Dinero insuficiente!");}
 
-		}else {
-			JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opción a comprar!");
-		}
+		}else {	JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opción a comprar!");}
 	}
 	
 	private void cargarInventario() {
@@ -163,22 +192,54 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 		}	
 	}
 	
+	private void venderItem() {
+	/*
+	 * FUNCION ENCARGADA DE VENDER EL ITEM A LA MITAD DE SU VALOR INICIAL
+	 */
+		if (!this.ventana.listaInventario.isSelectionEmpty()) {
+			
+			Item item = this.personaje.getInventario().get(this.ventana.listaInventario.getSelectedIndex());
+			int desicion = JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea vender este Item a USD "+item.getProducto().getPrice().getCurrent_price()/2+"?");
+			if (desicion == JOptionPane.YES_OPTION) {
+				this.personaje.getInventario().remove(item);
+				this.personaje.setDinero(this.personaje.getDinero()+(item.getProducto().getPrice().getCurrent_price()/2));
+				this.ventana.lblDinero.setText("Dinero: "+this.personaje.getDinero());
+				this.asignarProductosComprados();
+			}	
+			
+		}else { JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opción a vender!");}
+		
+	}
+	
+	private void equiparItem() {
+		
+	}
+	
 	@Override
 	public void valueChanged(ListSelectionEvent arg0){
 		
 	/*
 	 * FUNCION ENCARGADA DE RECIBIR LA SEÑAL POR PARTE DEL ITEM SELECCIONADO DEL JLIST
 	 */
-		
-		if (arg0.getValueIsAdjusting()) {//Se realiza dado que se ejecuta el listener cuando se presiona el boton y cuando se suelta
-			this.setPersonajeEstads();
-			int index = this.ventana.listaCompras.getSelectedIndex();
-			List<Item> l = this.inventario.get(Categoria.valueOf(this.ventana.comboBoxCategoria.getSelectedItem().toString())).get(Tipo.valueOf(this.ventana.comboBoxSeleccion.getSelectedItem().toString()));
-			Item item = l.get(index);
-			actualizarLabel(item.getEstadistica());
-			this.agregarImagen(item);
-			
 
+		if (arg0.getValueIsAdjusting()) {//Se realiza dado que se ejecuta el listener cuando se presiona el boton y cuando se suelta
+			
+			if(arg0.getSource() == this.ventana.listaCompras) {//Se ejecuta si la señal es proveniente de la lista de la tienda
+				
+				this.setPersonajeEstads();
+				int index = this.ventana.listaCompras.getSelectedIndex();
+				List<Item> l = this.inventario.get(Categoria.valueOf(this.ventana.comboBoxCategoria.getSelectedItem().toString())).get(Tipo.valueOf(this.ventana.comboBoxSeleccion.getSelectedItem().toString()));
+				Item item = l.get(index);
+				actualizarLabel(item.getEstadistica());
+				this.agregarImagen(item);
+				
+			}else {
+				this.setPersonajeEstads();
+				int index = this.ventana.listaInventario.getSelectedIndex();
+				Item item = this.personaje.getInventario().get(index);
+				actualizarLabel(item.getEstadistica());
+				this.agregarImagen(item);
+			}
 		}
 	}
 	

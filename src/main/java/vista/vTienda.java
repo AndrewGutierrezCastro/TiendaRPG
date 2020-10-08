@@ -47,6 +47,7 @@ public class vTienda {
 			lblGategoria,
 			lblSeleccion,
 			lblImagen,
+			lblInventario,
 			lblEstadisticas;
 	
 	public JLabelEstadistica 
@@ -115,7 +116,7 @@ public class vTienda {
 		
 		//PROPIEDADES DE LOS PANELES
 		this.panelTienda = ComponentesUI.getPanel(null,0, 0, 0, 0);
-		this.panelInventario = ComponentesUI.getPanel(Color.red,0, 0, 0, 0);
+		this.panelInventario = ComponentesUI.getPanel(Color.gray,0, 0, 0, 0);
 		
 		this.panelTienda2 = ComponentesUI.getPanel(Color.green,10, 85, 275, 330);
 		this.panelTienda.add(this.panelTienda2);
@@ -138,6 +139,9 @@ public class vTienda {
 		//PROPIEDADES DE LOS LABELS	
 		this.lblDinero = ComponentesUI.getLabel("Dinero: "+modelo.DatosEstadisticas.dinero, 328, 10, 100, 20);
 		this.frame.add(this.lblDinero);
+		
+		this.lblInventario = ComponentesUI.getLabel("INVENTARIO DEL PERSONAJE", 60, 20, 200, 20);
+		this.panelInventario.add(this.lblInventario);
 		
 		this.lblImagen = ComponentesUI.getLabel("", 20, 60, 200, 150);
 		this.panelPersonaje.add(lblImagen);
@@ -215,11 +219,9 @@ public class vTienda {
 
 		//PROPIEDADES DE LOS JLIST
 		this.listaCompras = new JList<>();
-		//this.listaCompras.setBounds(0, 0, 275, 330);
 		this.panelTienda2.add(this.listaCompras);
 		
 		this.listaInventario = new JList<>();
-		this.listaInventario.setBounds(0, 0, 275, 365);
 		this.panelInventario2.add(this.listaInventario);
 		
 		//PROPIEDADES DEL SCROLLPANE
@@ -227,8 +229,9 @@ public class vTienda {
 		this.scrllPnTienda.setBounds(0, 0, 275, 330);
 		this.panelTienda2.add(this.scrllPnTienda);
 		
-		
-		srcllPnInventario = new JScrollPane();
+		this.srcllPnInventario = new JScrollPane(this.listaInventario);
+		this.srcllPnInventario.setBounds(0, 0, 275, 365);
+		this.panelInventario2.add(this.srcllPnInventario);
 				
 		
 		
@@ -249,6 +252,7 @@ public class vTienda {
 		
 		//JLIST
 		this.listaCompras.addListSelectionListener(controlador);
+		this.listaInventario.addListSelectionListener(controlador);
 		
 	}
 	
@@ -268,6 +272,7 @@ public class vTienda {
 		this.comboBoxSeleccion.setActionCommand("SELECCION");
 		
 	}
+	
 	public List<JLabelEstadistica> getJlblEstadisticas(){
 		return Arrays.asList(
 				lblAtaque,
