@@ -7,14 +7,20 @@ public enum Tipo {
 	 * Funciones: Ninguna
 	 */
 	
-	CASCO,
-	ESCUDO,
-	PECHERA,
-	GUANTES,
-	PANTALONES,
-	ESPADA,
-	HACHA,
-	ARCO,
-	BACULOMAGICO,
-	POCION;
+	CASCO(Categoria.ARMADURA),
+	ESCUDO(Categoria.ARMADURA),
+	PECHERA(Categoria.ARMADURA),
+	GUANTES(Categoria.ARMADURA),
+	PANTALONES(Categoria.ARMADURA),
+	ESPADA(Categoria.ARMA),
+	HACHA(Categoria.ARMA),
+	ARCO(Categoria.ARMA),
+	BACULOMAGICO(Categoria.ARMA),
+	POCION(Categoria.CONSUMIBLES);
+	
+	public Categoria categoria;
+	
+	Tipo(Categoria pCategoria) {
+		this.categoria = pCategoria;
+	}
 }

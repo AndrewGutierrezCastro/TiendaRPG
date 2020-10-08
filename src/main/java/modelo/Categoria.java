@@ -8,7 +8,6 @@ public enum Categoria {
 	 */
 	ARMA,
 	ARMADURA,
-	CONSUMIBLES,
-	MAGIA;
+	CONSUMIBLES;
 	
 }

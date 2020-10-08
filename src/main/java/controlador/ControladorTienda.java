@@ -29,7 +29,7 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 	
 	private vTienda ventana;
 	private Personaje personaje;
-	private HashMap<String,HashMap<String,List<Item>>> inventario ;
+	private HashMap<Categoria,HashMap<Tipo,List<Item>>> inventario ;
 	private HashMap<Categoria, ArrayList<JLabelEstadistica>> hashMapLblStats;
 	
 	
@@ -74,25 +74,20 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 	 */
 		
 		String categoria = this.ventana.comboBoxCategoria.getSelectedItem().toString();
-		if (categoria == "") {
-			this.ventana.comboBoxSeleccion.setModel(new javax.swing.DefaultComboBoxModel<>());
-			this.ventana.comboBoxSeleccion.setEnabled(false);
-			this.ventana.lblSeleccion.setText("Seleccione la ...");
-			this.setPersonajeEstads();
-			return;
-		}
+		this.ventana.listaCompras.setModel(new DefaultListModel());
 		
 		this.ventana.comboBoxSeleccion.setEnabled(true);
+		
 		switch(categoria) {
-		case "Armas":
+		case "ARMA":
 			this.ventana.lblSeleccion.setText("Seleccione la arma:");
 			this.ventana.comboBoxSeleccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "ESPADA", "HACHA", "ARCO", "BACULOMAGICO"}));
 			break;
-		case "Armaduras":
+		case "ARMADURA":
 			this.ventana.lblSeleccion.setText("Seleccione la armadura:");
 			this.ventana.comboBoxSeleccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "CASCO", "ESCUDO", "PECHERA", "GUANTES", "PANTALONES"}));
 			break;
-		case "Pociones":
+		case "CONSUMIBLES":
 			this.ventana.lblSeleccion.setText("Seleccione la poción:");
 			this.ventana.comboBoxSeleccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "POCION"}));
 			break;
@@ -113,7 +108,7 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 		DefaultListModel modelo = (DefaultListModel) this.ventana.listaCompras.getModel();
 		int contador = 1;
 		
-		List<Item> l = this.inventario.get(this.ventana.comboBoxCategoria.getSelectedItem().toString()).get(this.ventana.comboBoxSeleccion.getSelectedItem().toString());
+		List<Item> l = this.inventario.get(Categoria.valueOf(this.ventana.comboBoxCategoria.getSelectedItem().toString())).get(Tipo.valueOf(this.ventana.comboBoxSeleccion.getSelectedItem().toString()));
 		for (Item item : l) {
 			modelo.addElement(contador+"/ "+item.getProducto().getTitle()+", PRICE: "+item.getProducto().getPrice()); 
 			contador++;
@@ -126,9 +121,8 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 		 */
 		
 		if (!this.ventana.listaCompras.isSelectionEmpty()) {
-			int index = this.ventana.listaCompras.getSelectedIndex();
-			List<Item> l = this.inventario.get(this.ventana.comboBoxCategoria.getSelectedItem().toString()).get(this.ventana.comboBoxSeleccion.getSelectedItem().toString());
-			Item item = l.get(index);
+			List<Item> l = this.inventario.get(Categoria.valueOf(this.ventana.comboBoxCategoria.getSelectedItem().toString())).get(Tipo.valueOf(this.ventana.comboBoxSeleccion.getSelectedItem().toString()));
+			Item item = l.get(this.ventana.listaCompras.getSelectedIndex());
 			System.out.println(item.getProducto().getTitle());
 
 		}else {
@@ -142,35 +136,27 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 		 */
 		
 		this.inventario = new HashMap<>();
-		String [] list = {"Armaduras","Armas","Pociones"};
-		String [] list2 = {"CASCO","ESCUDO","PECHERA","GUANTES","PANTALONES","ESPADA","HACHA","ARCO","BACULOMAGICO","POCION"};
-		int [] list3 = {5,9,10};//MODIFICAR CUANDO SE AGREGUE LA PARTE DE LAS POCIONES
-		int cont = 0;
 		
-		for (int i = 0; i < 3; i++) {//VA A AGREGAR A TODOS LOS PRODUCTOS CUALESQUIERA AL HASHMAP DE FORMA LOGICA
+		for (Tipo tipo : Tipo.values()) {
 			
-			HashMap<String,List<Item>> l2 = new HashMap<>(); 
-			
-			for (int w = cont; w < list3[i]; w++) {
-				
-				List<Producto> l = CreadorObjetos.getListProducts(list2[cont]);
-				List<Item> listaItem = new ArrayList<>();
-				
-				for (int j = 0; j < l.size(); j++) {
-					
-					//Item item = new Item((new Random()).nextInt(10) + 3, ,Tipo.valueOf(list2[cont]), l.get(j));
-					//listaItem.add(item);
-					
-				}
-				
-				l2.put(list2[cont], listaItem);
-				cont++;
+			if (this.inventario.get(tipo.categoria) == null) {
+				this.inventario.put(tipo.categoria, new HashMap<Tipo,List<Item>>());
 			}
-			this.inventario.put(list[i], l2);
-		}
 			
+			List<Producto> l = CreadorObjetos.getListProducts(tipo.toString());
+			List<Item> listaItem = new ArrayList<>();
+			
+			for (int j = 0; j < l.size(); j++) {
+				
+				Item item = new Item((new Random()).nextInt(10) + 3,tipo.categoria , tipo, l.get(j));
+				listaItem.add(item);
+				
+			}
+				
+			this.inventario.get(tipo.categoria).put(tipo, listaItem);
+			
+		}	
 	}
-
 	
 	@Override
 	public void valueChanged(ListSelectionEvent arg0) {
@@ -179,13 +165,11 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 	 * FUNCION ENCARGADA DE RECIBIR LA SEÑAL POR PARTE DEL ITEM SELECCIONADO DEL JLIST
 	 */
 		
-		boolean w = arg0.getValueIsAdjusting();
-		if (w) {//Se realiza dado que se ejecuta el listener cuando se presiona el boton y cuando se suelta
-			
+		if (arg0.getValueIsAdjusting()) {//Se realiza dado que se ejecuta el listener cuando se presiona el boton y cuando se suelta
+			this.setPersonajeEstads();
 			int index = this.ventana.listaCompras.getSelectedIndex();
-			List<Item> l = this.inventario.get(this.ventana.comboBoxCategoria.getSelectedItem().toString()).get(this.ventana.comboBoxSeleccion.getSelectedItem().toString());
+			List<Item> l = this.inventario.get(Categoria.valueOf(this.ventana.comboBoxCategoria.getSelectedItem().toString())).get(Tipo.valueOf(this.ventana.comboBoxSeleccion.getSelectedItem().toString()));
 			Item item = l.get(index);
-			//this.actualizarStatsPantalla(1, item.getCategoria(), item.getEstadistica().getValor());
 			actualizarLabel(item.getEstadistica());
 		}
 	}
@@ -234,92 +218,5 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 			}
 		}
 	}
-	
-	private void actualizarStatsPantalla(int accion, Categoria categoria, int valor) {
-		
-	/*
-	 * FUNCION ENCARGADA DE MODIFICAR LAS ESTADISTICAS CUANDO SE SELECCIONA UN PRODUCTO
-	 */	
-		//Llamar un metodo que actualice las labels segun la categoria del item seleccionado 
-		
-		if (accion == 0) {
-			
-			this.ventana.lblAtaque.setText("Ataque: "+this.personaje.getEstadisticas().getAtaque().getValor());
-			this.ventana.lblDefensa.setText("Defensa: "+this.personaje.getEstadisticas().getDefensa().getValor());
-			this.ventana.lblVelocidad.setText("Velocidad: "+this.personaje.getEstadisticas().getVelocidad().getValor());
-			this.ventana.lblMagia.setText("Magia: "+this.personaje.getEstadisticas().getSuerte().getValor());
-			this.ventana.lblVida.setText("Vida: "+this.personaje.getEstadisticas().getVida().getValor());
-			
-		}else {
-			
-			//this.actualizarStatsPantalla(0, "", 0);
-			
-			switch (categoria.toString()) {
-			case "CASCO":
-				
-				this.ventana.lblDefensa.setText("Defensa: "+this.personaje.getEstadisticas().getDefensa().getValor()+"  +  "+valor);
-				this.ventana.lblVida.setText("Vida: "+this.personaje.getEstadisticas().getVida().getValor()+"  +  "+(int)(valor/2));
-				
-				break;
-			case "ESCUDO":
-				
-				this.ventana.lblDefensa.setText("Defensa: "+this.personaje.getEstadisticas().getDefensa().getValor()+"  +  "+valor);
-				this.ventana.lblAtaque.setText("Ataque: "+this.personaje.getEstadisticas().getAtaque().getValor()+"  +  "+(int)(valor/2));
-				
-				break;
-			case "PECHERA":
-				
-				this.ventana.lblDefensa.setText("Defensa: "+this.personaje.getEstadisticas().getDefensa().getValor()+"  +  "+valor);
-				this.ventana.lblVida.setText("Vida: "+this.personaje.getEstadisticas().getVida().getValor()+"  +  "+(int)(valor/2));
-				
-				break;
-			case "GUANTES":
-				
-				this.ventana.lblMagia.setText("Magia: "+this.personaje.getEstadisticas().getSuerte().getValor()+"  +  "+valor);
-				this.ventana.lblDefensa.setText("Defensa: "+this.personaje.getEstadisticas().getDefensa().getValor()+"  +  "+(int)(valor/2));
-				
-				break;
-			case "PANTALONES":
-				
-				this.ventana.lblVelocidad.setText("Velocidad: "+this.personaje.getEstadisticas().getVelocidad().getValor()+"  +  "+valor);
-				this.ventana.lblDefensa.setText("Defensa: "+this.personaje.getEstadisticas().getDefensa().getValor()+"  +  "+(int)(valor/2));
-				
-				break;
-			case "ESPADA":
-				
-				this.ventana.lblAtaque.setText("Ataque: "+this.personaje.getEstadisticas().getAtaque().getValor()+"  +  "+valor);
-				this.ventana.lblDefensa.setText("Defensa: "+this.personaje.getEstadisticas().getDefensa().getValor()+"  +  "+(int)(valor/2));
-				
-				break;
-			case "HACHA":
-				
-				this.ventana.lblAtaque.setText("Ataque: "+this.personaje.getEstadisticas().getAtaque().getValor()+"  +  "+valor);
-				this.ventana.lblDefensa.setText("Defensa: "+this.personaje.getEstadisticas().getDefensa().getValor()+"  +  "+(int)(valor/2));
-				
-				break;
-			case "ARCO":
-				
-				this.ventana.lblAtaque.setText("Ataque: "+this.personaje.getEstadisticas().getAtaque().getValor()+"  +  "+valor);
-				this.ventana.lblMagia.setText("Magia: "+this.personaje.getEstadisticas().getSuerte().getValor()+"  +  "+(int)(valor/2));
-				
-				break;
-			case "BACULOMAGICO":
-				
-				this.ventana.lblAtaque.setText("Ataque: "+this.personaje.getEstadisticas().getAtaque().getValor()+"  +  "+(int)(valor/2));
-				this.ventana.lblMagia.setText("Magia: "+this.personaje.getEstadisticas().getSuerte().getValor()+"  +  "+valor);
-				
-				break;
-			case "POCION":
-				
-				this.ventana.lblVida.setText("Vida: "+this.personaje.getEstadisticas().getVida().getValor()+"  +  "+valor);
-				this.ventana.lblMagia.setText("Magia: "+this.personaje.getEstadisticas().getSuerte().getValor()+"  +  "+(int)(valor/2));
-				
-				break;
-			}
-			
-		}
-	}
-	
-	
 
 }

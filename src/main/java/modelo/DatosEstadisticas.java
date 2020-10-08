@@ -14,5 +14,5 @@ public interface DatosEstadisticas {
 			   cDefensa = Categoria.ARMADURA,
 			   cVelocidad = Categoria.ARMADURA,
 			   cVida = Categoria.ARMADURA,
-			   cMagia = Categoria.MAGIA;
+			   cMagia = Categoria.CONSUMIBLES;
 }

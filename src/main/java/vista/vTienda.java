@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTabbedPane;
 
 import controlador.ControladorTienda;
+import modelo.Categoria;
 
 public class vTienda {
 
@@ -198,7 +199,7 @@ public class vTienda {
 		this.comboBoxCategoria = new JComboBox <>();
 		this.comboBoxCategoria.setBounds(160, 10, 125, 20);
 		this.comboBoxCategoria.setFont(new Font("Arial", Font.PLAIN, 11));
-		this.comboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Armas", "Armaduras", "Pociones"}));
+		this.comboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(Categoria.values()));
 		this.panelTienda.add(this.comboBoxCategoria);
 		
 		this.comboBoxSeleccion = new JComboBox <>();
