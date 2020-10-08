@@ -1,6 +1,9 @@
 package modelo;
 
-public class Estadisticas implements DatosEstadisticas{
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Estadisticas{
 	
 	/*
 	 * Clase: Estadisticas.
@@ -16,11 +19,11 @@ public class Estadisticas implements DatosEstadisticas{
 	public Estadisticas() {
 		super();
 		
-		this.ataque = new Estadistica(DatosEstadisticas.ataque);
-		this.defensa = new Estadistica(DatosEstadisticas.defensa);
-		this.velocidad = new Estadistica(DatosEstadisticas.velocidad);
-		this.vida = new Estadistica(DatosEstadisticas.vida);
-		this.suerte = new Estadistica(DatosEstadisticas.suerte);
+		this.ataque = new Estadistica(DatosEstadisticas.ataque, DatosEstadisticas.cAtaque);
+		this.defensa = new Estadistica(DatosEstadisticas.defensa, DatosEstadisticas.cDefensa);
+		this.velocidad = new Estadistica(DatosEstadisticas.velocidad, DatosEstadisticas.cVelocidad);
+		this.vida = new Estadistica(DatosEstadisticas.vida, DatosEstadisticas.cVida);
+		this.suerte = new Estadistica(DatosEstadisticas.magia, DatosEstadisticas.cMagia);
 		
 	}
 
@@ -45,6 +48,20 @@ public class Estadisticas implements DatosEstadisticas{
 	public Estadistica getSuerte() {
 		return suerte;
 	}
+
+	public ArrayList<Estadistica> getArrayListStats(){
+		return (ArrayList<Estadistica>)
+				Arrays.asList(
+				defensa, 
+				ataque, 
+				velocidad,
+				vida,
+				suerte);
+	}
+
+
+
+	
 	
 	
 

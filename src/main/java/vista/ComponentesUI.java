@@ -13,6 +13,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import modelo.Categoria;
+
 public class ComponentesUI {
 	
 	ComponentesUI(){}
@@ -20,6 +22,15 @@ public class ComponentesUI {
 	//DEVUELVE UN JLABEL
 	public static JLabel getLabel(String s, int x, int y, int width, int height){
 		JLabel a = new JLabel();
+		a.setFont(new Font("Arial", Font.PLAIN, 12));
+		a.setText(s);
+		a.setBounds(x,y,width,height);
+		return a;
+	}
+	
+	//DEVUELVE UN JLABElESTADISTICA
+	public static JLabelEstadistica getLabel(String title, String s, Categoria categoria, int x, int y, int width, int height){
+		JLabelEstadistica a = new JLabelEstadistica(categoria, title);
 		a.setFont(new Font("Arial", Font.PLAIN, 12));
 		a.setText(s);
 		a.setBounds(x,y,width,height);

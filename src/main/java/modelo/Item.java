@@ -8,13 +8,14 @@ public class Item {
 	 */
 	private Estadistica estadistica1, estadistica2;
 	//private Categoria categoria;
+	private Categoria categoria;
 	private Tipo tipo;
 	private Producto producto;
 	
-	public Item(int pValor, Tipo pTipo, Producto pProducto) {
+	public Item(int pValor, Categoria categoria, Tipo pTipo, Producto pProducto) {
 
-		this.estadistica1 = new Estadistica(pValor);
-		this.estadistica2 = new Estadistica((int)(pValor/2));
+		this.estadistica1 = new Estadistica(pValor, categoria);
+		this.estadistica2 = new Estadistica((int)(pValor/2), categoria);
 		this.tipo = pTipo;
 		this.producto = pProducto;
 	}
@@ -35,5 +36,10 @@ public class Item {
 	public Tipo getTipo() {
 		return tipo;
 	}
-		
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	
 }

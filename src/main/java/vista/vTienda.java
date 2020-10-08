@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -39,14 +41,16 @@ public class vTienda {
 	
 	public JLabel
 			lblDinero,
+			lblGategoria,
+			lblSeleccion,
+			lblEstadisticas;
+	
+	public JLabelEstadistica 
 			lblAtaque,
 			lblDefensa,
 			lblVelocidad,
 			lblVida,
-			lblMagia,
-			lblGategoria,
-			lblSeleccion,
-			lblEstadisticas;
+			lblMagia;
 	
 	public JPanel
 			panelTienda,
@@ -140,19 +144,39 @@ public class vTienda {
 		this.lblEstadisticas = ComponentesUI.getLabel("   ESTADISTICAS DEL PERSONAJE",10,20,200,20);
 		this.panelPersonaje.add(this.lblEstadisticas);
 		
-		this.lblAtaque = ComponentesUI.getLabel("Ataque: "+modelo.DatosEstadisticas.ataque,10,240,200,20);
+		this.lblAtaque = ComponentesUI.
+					getLabel("Ataque: ",
+							String.valueOf(modelo.DatosEstadisticas.ataque),
+							modelo.DatosEstadisticas.cAtaque,
+							10,240,200,20);
 		this.panelPersonaje.add(this.lblAtaque);
 
-		this.lblDefensa = ComponentesUI.getLabel("Defensa: "+modelo.DatosEstadisticas.defensa,10,280,200,20);
+		this.lblDefensa = ComponentesUI.
+					getLabel("Defensa: ",
+							String.valueOf(modelo.DatosEstadisticas.defensa),
+							modelo.DatosEstadisticas.cDefensa,
+							10,280,200,20);
 		this.panelPersonaje.add(this.lblDefensa);
 		
-		this.lblVelocidad = ComponentesUI.getLabel("Velocidad: "+modelo.DatosEstadisticas.velocidad,10,320,200,20);
+		this.lblVelocidad = ComponentesUI.
+					getLabel("Velocidad: ",
+							String.valueOf(modelo.DatosEstadisticas.velocidad),
+							modelo.DatosEstadisticas.cVelocidad,
+							10,320,200,20);
 		this.panelPersonaje.add(this.lblVelocidad);
 		
-		this.lblVida = ComponentesUI.getLabel("Vida: "+modelo.DatosEstadisticas.vida,10,360,200,20);
+		this.lblVida = ComponentesUI.
+					getLabel("Vida: ",
+							String.valueOf(modelo.DatosEstadisticas.vida),
+							modelo.DatosEstadisticas.cVida,
+							10,360,200,20);
 		this.panelPersonaje.add(this.lblVida);
 		
-		this.lblMagia = ComponentesUI.getLabel("Magia: "+modelo.DatosEstadisticas.suerte,10,400,200,20);
+		this.lblMagia = ComponentesUI.
+					getLabel("Magia: ",
+							String.valueOf(modelo.DatosEstadisticas.magia),
+							modelo.DatosEstadisticas.cMagia,
+							10,400,200,20);
 		this.panelPersonaje.add(this.lblMagia);
 		
 		
@@ -237,6 +261,15 @@ public class vTienda {
 		this.comboBoxSeleccion.setActionCommand("SELECCION");
 		
 	}
-	
+	public ArrayList<JLabelEstadistica> getJlblEstadisticas(){
+		return 
+			(ArrayList<JLabelEstadistica>)
+			Arrays.asList(
+				lblAtaque,
+				lblDefensa,
+				lblVelocidad,
+				lblVida,
+				lblMagia);
+	}
 }
 

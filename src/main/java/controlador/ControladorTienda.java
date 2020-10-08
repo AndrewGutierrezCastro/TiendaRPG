@@ -2,6 +2,8 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,11 +14,14 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import modelo.Categoria;
 import modelo.CreadorObjetos;
+import modelo.Estadistica;
 import modelo.Item;
 import modelo.Personaje;
 import modelo.Producto;
 import modelo.Tipo;
+import vista.JLabelEstadistica;
 import vista.vTienda;
 
 
@@ -25,12 +30,16 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 	private vTienda ventana;
 	private Personaje personaje;
 	private HashMap<String,HashMap<String,List<Item>>> inventario ;
+	private HashMap<Categoria, ArrayList<JLabelEstadistica>> hashMapLblStats;
+	
 	
 	public ControladorTienda() {
 		this.ventana = new vTienda(this);
 		this.personaje = new Personaje();
 		this.ventana.cargar();
 		this.cargarInventario();
+		this.cargarLabelsEstadistica();
+		
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
@@ -69,7 +78,7 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 			this.ventana.comboBoxSeleccion.setModel(new javax.swing.DefaultComboBoxModel<>());
 			this.ventana.comboBoxSeleccion.setEnabled(false);
 			this.ventana.lblSeleccion.setText("Seleccione la ...");
-			this.actualizarStatsPantalla(0,"",0);
+			//this.actualizarStatsPantalla(0,"",0);
 			return;
 		}
 		
@@ -138,7 +147,7 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 		int [] list3 = {5,9,10};//MODIFICAR CUANDO SE AGREGUE LA PARTE DE LAS POCIONES
 		int cont = 0;
 		
-		for (int i = 0; i < 3; i++) {//VA A AGREGAR A TODOS LOS PRODUCTOS CUALESQUIERA AL HASMAP DE FORMA LOGICA
+		for (int i = 0; i < 3; i++) {//VA A AGREGAR A TODOS LOS PRODUCTOS CUALESQUIERA AL HASHMAP DE FORMA LOGICA
 			
 			HashMap<String,List<Item>> l2 = new HashMap<>(); 
 			
@@ -149,8 +158,8 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 				
 				for (int j = 0; j < l.size(); j++) {
 					
-					Item item = new Item((new Random()).nextInt(10) + 3, Tipo.valueOf(list2[cont]), l.get(j));
-					listaItem.add(item);
+					//Item item = new Item((new Random()).nextInt(10) + 3, Tipo.valueOf(list2[cont]), l.get(j));
+					//listaItem.add(item);
 					
 				}
 				
@@ -162,6 +171,7 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 			
 	}
 
+	
 	@Override
 	public void valueChanged(ListSelectionEvent arg0) {
 		
@@ -175,16 +185,40 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 			int index = this.ventana.listaCompras.getSelectedIndex();
 			List<Item> l = this.inventario.get(this.ventana.comboBoxCategoria.getSelectedItem().toString()).get(this.ventana.comboBoxSeleccion.getSelectedItem().toString());
 			Item item = l.get(index);
-			this.actualizarStatsPantalla(1, item.getTipo().toString(), item.getEstadistica().getValor());
-			
+			//this.actualizarStatsPantalla(1, item.getCategoria(), item.getEstadistica().getValor());
+			actualizarLabel(item);
 		}
 	}
 	
-	private void actualizarStatsPantalla(int accion, String tipo, int valor) {
+	private void cargarLabelsEstadistica() {
+		hashMapLblStats = new HashMap<Categoria,ArrayList<JLabelEstadistica>>();
+		ArrayList<JLabelEstadistica> arrayListLblStats;
+		arrayListLblStats = ventana.getJlblEstadisticas();
+		for (JLabelEstadistica lblEstadistica : arrayListLblStats) {
+			if(hashMapLblStats.get(lblEstadistica.getCategoria()).equals(null)){
+				hashMapLblStats.put(lblEstadistica.getCategoria(), new ArrayList<JLabelEstadistica>());
+			}
+			hashMapLblStats.get(lblEstadistica.getCategoria()).add(lblEstadistica);
+		}
+	}
+	
+	private void actualizarLabel(Item item) {
+		ArrayList<JLabelEstadistica> arrayLabel = hashMapLblStats.get(item.getCategoria());
+		int valor;
+		for (JLabelEstadistica lblStats : arrayLabel) {
+			valor = personaje.getHashMapJugadorStats().get(item.getCategoria()).getValor();
+			valor += item.getEstadistica().getValor();
+			lblStats.setText(String.valueOf(valor));
+		}
+	}
+	
+	private void actualizarStatsPantalla(int accion, Categoria categoria, int valor) {
 		
 	/*
 	 * FUNCION ENCARGADA DE MODIFICAR LAS ESTADISTICAS CUANDO SE SELECCIONA UN PRODUCTO
-	 */
+	 */	
+		//Llamar un metodo que actualice las labels segun la categoria del item seleccionado 
+		
 		if (accion == 0) {
 			
 			this.ventana.lblAtaque.setText("Ataque: "+this.personaje.getEstadisticas().getAtaque().getValor());
@@ -195,8 +229,9 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 			
 		}else {
 			
-			this.actualizarStatsPantalla(0, "", 0);
-			switch (tipo) {
+			//this.actualizarStatsPantalla(0, "", 0);
+			
+			switch (categoria.toString()) {
 			case "CASCO":
 				
 				this.ventana.lblDefensa.setText("Defensa: "+this.personaje.getEstadisticas().getDefensa().getValor()+"  +  "+valor);
