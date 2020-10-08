@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -45,6 +46,7 @@ public class vTienda {
 			lblDinero,
 			lblGategoria,
 			lblSeleccion,
+			lblImagen,
 			lblEstadisticas;
 	
 	public JLabelEstadistica 
@@ -137,13 +139,16 @@ public class vTienda {
 		this.lblDinero = ComponentesUI.getLabel("Dinero: "+modelo.DatosEstadisticas.dinero, 328, 10, 100, 20);
 		this.frame.add(this.lblDinero);
 		
+		this.lblImagen = ComponentesUI.getLabel("", 20, 60, 200, 150);
+		this.panelPersonaje.add(lblImagen);
+		
 		this.lblGategoria = ComponentesUI.getLabel("Seleccione la Categoria: ",10,10,150,20);
 		this.panelTienda.add(this.lblGategoria);
 		
 		this.lblSeleccion = ComponentesUI.getLabel("Seleccione la ...", 10, 50, 150, 20);
 		this.panelTienda.add(this.lblSeleccion);
 		
-		this.lblEstadisticas = ComponentesUI.getLabel("   ESTADISTICAS DEL PERSONAJE",10,20,200,20);
+		this.lblEstadisticas = ComponentesUI.getLabel("   ESTADISTICAS DEL PERSONAJE",20,20,200,20);
 		this.panelPersonaje.add(this.lblEstadisticas);
 		
 		this.lblAtaque = ComponentesUI.

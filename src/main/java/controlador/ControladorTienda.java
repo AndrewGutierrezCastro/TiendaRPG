@@ -2,8 +2,11 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +24,8 @@ import modelo.Item;
 import modelo.Personaje;
 import modelo.Producto;
 import modelo.Tipo;
+import vista.ComponentesUI;
+import vista.Helpers;
 import vista.JLabelEstadistica;
 import vista.vTienda;
 
@@ -159,7 +164,7 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 	}
 	
 	@Override
-	public void valueChanged(ListSelectionEvent arg0) {
+	public void valueChanged(ListSelectionEvent arg0){
 		
 	/*
 	 * FUNCION ENCARGADA DE RECIBIR LA SEÑAL POR PARTE DEL ITEM SELECCIONADO DEL JLIST
@@ -171,6 +176,9 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 			List<Item> l = this.inventario.get(Categoria.valueOf(this.ventana.comboBoxCategoria.getSelectedItem().toString())).get(Tipo.valueOf(this.ventana.comboBoxSeleccion.getSelectedItem().toString()));
 			Item item = l.get(index);
 			actualizarLabel(item.getEstadistica());
+			this.agregarImagen(item);
+			
+
 		}
 	}
 	
@@ -216,6 +224,20 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 			for (JLabelEstadistica lblStats : arrayLabel) {
 				lblStats.setText(String.valueOf(valor));
 			}
+		}
+	}
+	
+	private void agregarImagen(Item item) {
+		
+		try {
+			this.ventana.lblImagen.setIcon(
+					Helpers.getImagen(
+					ComponentesUI.getWebImage(
+					new URL(item.getProducto().getThumbnail())),
+					200, 150));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
