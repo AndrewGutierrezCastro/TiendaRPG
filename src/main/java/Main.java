@@ -29,9 +29,6 @@ public class Main {
 	
 		
 		
-		 
-		
-		
 		new ControladorTienda();
 		}
 }

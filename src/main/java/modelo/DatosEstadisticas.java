@@ -9,9 +9,10 @@ public interface DatosEstadisticas {
 			   magia = 30, 
 			   dinero = 10000;
 	
-	public final Categoria cAtaque = Categoria.ARMA,
-					 cDefensa = Categoria.ARMADURA,
-					 cVelocidad = Categoria.ARMADURA,
-					 cVida = Categoria.ARMADURA,
-					 cMagia = Categoria.MAGIA;
+	public final Categoria 
+			   cAtaque = Categoria.ARMA,
+			   cDefensa = Categoria.ARMADURA,
+			   cVelocidad = Categoria.ARMADURA,
+			   cVida = Categoria.ARMADURA,
+			   cMagia = Categoria.MAGIA;
 }

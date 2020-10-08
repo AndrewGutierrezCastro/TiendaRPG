@@ -78,7 +78,7 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 			this.ventana.comboBoxSeleccion.setModel(new javax.swing.DefaultComboBoxModel<>());
 			this.ventana.comboBoxSeleccion.setEnabled(false);
 			this.ventana.lblSeleccion.setText("Seleccione la ...");
-			//this.actualizarStatsPantalla(0,"",0);
+			this.setPersonajeEstads();
 			return;
 		}
 		
@@ -158,7 +158,7 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 				
 				for (int j = 0; j < l.size(); j++) {
 					
-					//Item item = new Item((new Random()).nextInt(10) + 3, Tipo.valueOf(list2[cont]), l.get(j));
+					//Item item = new Item((new Random()).nextInt(10) + 3, ,Tipo.valueOf(list2[cont]), l.get(j));
 					//listaItem.add(item);
 					
 				}
@@ -186,29 +186,52 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 			List<Item> l = this.inventario.get(this.ventana.comboBoxCategoria.getSelectedItem().toString()).get(this.ventana.comboBoxSeleccion.getSelectedItem().toString());
 			Item item = l.get(index);
 			//this.actualizarStatsPantalla(1, item.getCategoria(), item.getEstadistica().getValor());
-			actualizarLabel(item);
+			actualizarLabel(item.getEstadistica());
 		}
 	}
 	
 	private void cargarLabelsEstadistica() {
+		/*
+		 * Se crea el hashmap de labelsEstadisticas 
+		 * apartir de una lista de JlabelsEstadistica
+		 * */
 		hashMapLblStats = new HashMap<Categoria,ArrayList<JLabelEstadistica>>();
-		ArrayList<JLabelEstadistica> arrayListLblStats;
-		arrayListLblStats = ventana.getJlblEstadisticas();
+		List<JLabelEstadistica> arrayListLblStats = ventana.getJlblEstadisticas();
+		
 		for (JLabelEstadistica lblEstadistica : arrayListLblStats) {
-			if(hashMapLblStats.get(lblEstadistica.getCategoria()).equals(null)){
+			if(hashMapLblStats.get(lblEstadistica.getCategoria()) == null){
 				hashMapLblStats.put(lblEstadistica.getCategoria(), new ArrayList<JLabelEstadistica>());
 			}
 			hashMapLblStats.get(lblEstadistica.getCategoria()).add(lblEstadistica);
 		}
 	}
 	
-	private void actualizarLabel(Item item) {
-		ArrayList<JLabelEstadistica> arrayLabel = hashMapLblStats.get(item.getCategoria());
-		int valor;
+	private void actualizarLabel(Estadistica estad) {
+		/* Este metodo actualiza las labels de estadisticas con el estad enviado
+		 * Este tiene categoria y un valor, solo eso es necesario para identificar las labels
+		 * a modificar
+		 * */
+		ArrayList<JLabelEstadistica> arrayLabel = hashMapLblStats.get(estad.getCategoria());
+		int valorPersonaje;
+		int valorEstadistica = estad.getValor();
 		for (JLabelEstadistica lblStats : arrayLabel) {
-			valor = personaje.getHashMapJugadorStats().get(item.getCategoria()).getValor();
-			valor += item.getEstadistica().getValor();
-			lblStats.setText(String.valueOf(valor));
+			valorPersonaje = personaje.getHashMapJugadorStats().get(estad.getCategoria()).getValor();
+			lblStats.setText(valorPersonaje + "  +  " + valorEstadistica);
+			valorEstadistica = valorEstadistica / 2;
+		}
+	}
+	
+	private void setPersonajeEstads() {
+		/*
+		 * Este metodo setea las estads del personaje recorriendo el 
+		 * hash de estadisticas para llamar el metodo
+		 * */
+		for (Estadistica estad : personaje.getHashMapJugadorStats().values()) {
+			int valor = personaje.getHashMapJugadorStats().get(estad.getCategoria()).getValor();
+			ArrayList<JLabelEstadistica> arrayLabel = hashMapLblStats.get(estad.getCategoria());
+			for (JLabelEstadistica lblStats : arrayLabel) {
+				lblStats.setText(String.valueOf(valor));
+			}
 		}
 	}
 	

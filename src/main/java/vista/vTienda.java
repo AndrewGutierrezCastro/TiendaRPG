@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -261,10 +262,8 @@ public class vTienda {
 		this.comboBoxSeleccion.setActionCommand("SELECCION");
 		
 	}
-	public ArrayList<JLabelEstadistica> getJlblEstadisticas(){
-		return 
-			(ArrayList<JLabelEstadistica>)
-			Arrays.asList(
+	public List<JLabelEstadistica> getJlblEstadisticas(){
+		return Arrays.asList(
 				lblAtaque,
 				lblDefensa,
 				lblVelocidad,

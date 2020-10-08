@@ -1,7 +1,7 @@
 package modelo;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Estadisticas{
 	
@@ -13,7 +13,12 @@ public class Estadisticas{
 	
 
 	//Atributos:
-	private Estadistica defensa, ataque, velocidad, vida, suerte;
+	private Estadistica 
+				defensa,
+				ataque,
+				velocidad,
+				vida,
+				suerte;
 
 	//Constructor:
 	public Estadisticas() {
@@ -49,9 +54,8 @@ public class Estadisticas{
 		return suerte;
 	}
 
-	public ArrayList<Estadistica> getArrayListStats(){
-		return (ArrayList<Estadistica>)
-				Arrays.asList(
+	public List<Estadistica> getArrayListStats(){
+		return Arrays.asList(
 				defensa, 
 				ataque, 
 				velocidad,
