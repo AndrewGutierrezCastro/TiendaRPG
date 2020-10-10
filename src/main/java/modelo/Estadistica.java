@@ -8,12 +8,22 @@ public class Estadistica{
 	 */
 	private int valor;
 	private Categoria categoria;
+	private NombreEstadistica nombreEstadistica;
+	public Estadistica(int valor, Categoria categoria, NombreEstadistica nombreEstadistica) {
+		super();
+		this.valor = valor;
+		this.categoria = categoria;
+		this.nombreEstadistica = nombreEstadistica;
+	}
 	
 	public Estadistica(int valor, Categoria categoria) {
 		super();
 		this.valor = valor;
 		this.categoria = categoria;
+		this.nombreEstadistica = NombreEstadistica.MAGIA;
 	}
+
+
 
 	public int getValor() {
 		return valor;
@@ -29,6 +39,10 @@ public class Estadistica{
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public NombreEstadistica getNombreEstadistica() {
+		return nombreEstadistica;
 	}
 	
 }

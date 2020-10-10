@@ -3,10 +3,8 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Type;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.temporal.JulianFields;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,8 +19,10 @@ import modelo.Categoria;
 import modelo.CreadorObjetos;
 import modelo.Estadistica;
 import modelo.Item;
+import modelo.NombreEstadistica;
 import modelo.Personaje;
 import modelo.Producto;
+import modelo.Tienda;
 import modelo.Tipo;
 import vista.ComponentesUI;
 import vista.Helpers;
@@ -34,15 +34,14 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 	
 	private vTienda ventana;
 	private Personaje personaje;
-	private HashMap<Categoria,HashMap<Tipo,List<Item>>> inventario ;
-	private HashMap<Categoria, ArrayList<JLabelEstadistica>> hashMapLblStats;
-	
+	private Tienda tienda;
+	private HashMap<NombreEstadistica, JLabelEstadistica> hashMapLblStats;
 	
 	public ControladorTienda() {
 		this.ventana = new vTienda(this);
 		this.personaje = new Personaje();
+		this.tienda = new Tienda();
 		this.ventana.cargar();
-		this.cargarInventario();
 		this.cargarLabelsEstadistica();
 		
 	}
@@ -51,7 +50,7 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 		
 		switch(arg0.getActionCommand()) {
 		case "COMPRAR":
-			this.comprarObjeto();
+			this.comprarItem();
 			break;
 			
 		case "VENDER":
@@ -73,6 +72,81 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 		
 	}
 	
+	private InformacionItem getItemSeleccionadoTienda() {
+		if (!this.ventana.listaCompras.isSelectionEmpty()) {
+			Categoria categoriaItem =  Categoria.valueOf(this.ventana.comboBoxCategoria.getSelectedItem().toString());
+			Tipo tipoItem = Tipo.valueOf(this.ventana.comboBoxSeleccion.getSelectedItem().toString());
+			int indexLista =  this.ventana.listaCompras.getSelectedIndex();
+			return new InformacionItem(categoriaItem, tipoItem, indexLista);
+		}
+		return null;
+	}
+	
+	private InformacionItem getTipoSeleccionado() {
+		String categoria = this.ventana.comboBoxCategoria.getSelectedItem().toString();
+		String tipo = this.ventana.comboBoxSeleccion.getSelectedItem().toString();
+		if(categoria != "" && tipo != "") {
+			Categoria categoriaItem =  Categoria.valueOf(categoria);
+			Tipo tipoItem = Tipo.valueOf(tipo);
+			int indexLista =  this.ventana.listaCompras.getSelectedIndex();
+			return new InformacionItem(categoriaItem, tipoItem, indexLista);
+		}
+		return null;
+	}
+	
+	private void venderItem() {
+		
+		if (!this.ventana.listaInventario.isSelectionEmpty()) {
+			Item item = this.personaje.getItemInventario(this.ventana.listaInventario.getSelectedIndex());
+			int desicion = JOptionPane.
+					showConfirmDialog(null,
+						"¿Esta seguro que desea vender este Item a USD "+
+							item.getProducto().getPrice().getCurrent_price()/2+"?");
+			
+			if (desicion == JOptionPane.YES_OPTION) {
+				this.personaje.venderItem(item);
+				this.ventana.lblDinero.setText("Dinero: "+this.personaje.getDinero());
+				this.asignarProductosComprados();
+			}
+		}else { JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opción a vender!");}
+		
+	}
+	
+	private void comprarItem() {
+		/*
+		 * Este metodo se encarga de llamar al metodo comprar en tienda 
+		 * Validar si se selecciono un item de la lista en UI, Obtener sus 
+		 * datos.
+		 * Llamar al metodo comprar en Personaje
+		 
+		 * */
+		
+		InformacionItem infoItem = getItemSeleccionadoTienda();
+		if (infoItem != null) {	
+			
+			Item item = tienda.comprarItem(infoItem);
+			
+			if(personaje.comprarItem(item)) {
+				
+				JOptionPane.showMessageDialog(null, "¡Comprado correctamente!");
+				System.out.println(item.getProducto().getPrice().getCurrent_price());
+				this.ventana.lblDinero.setText("Dinero: "+this.personaje.getDinero());		
+				this.asignarProductosComprados();
+				System.out.println(this.personaje.getInventario().size());
+			
+			}else {
+				JOptionPane.showMessageDialog(null, "¡No tiene dinero o ya lo tiene en inventario!");
+			}
+				
+		}else {	JOptionPane.showMessageDialog(null, "¡Debe selccionar algun item!");}
+
+	}	
+	
+	private void equiparItem() {
+		
+	}
+	
+
 	private void cambiarOpcionesComboBox() {
 	/*
 	 * FUNCION ENCARGADA DE CAMBIAR LAS OPCIONES DEL COMBOBOX DE SELECCION 
@@ -114,6 +188,7 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 		}
 	}
 	
+	
 	private void asignarProductosPorTipo() {
 		/*
 		 * FUNCION ENCARGADA DE ASIGNAR LOS PRODUCTOS A LA LISTA DEPENDIENDO DE LA CATEGORIA Y ARMA SELECCIONADA
@@ -128,91 +203,11 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 		DefaultListModel modelo = (DefaultListModel) this.ventana.listaCompras.getModel();
 		int contador = 1;
 		
-		List<Item> l = this.inventario.get(Categoria.valueOf(this.ventana.comboBoxCategoria.getSelectedItem().toString())).get(Tipo.valueOf(this.ventana.comboBoxSeleccion.getSelectedItem().toString()));
+		List<Item> l = tienda.getListItem(getTipoSeleccionado());
 		for (Item item : l) {
 			modelo.addElement(contador+"/ "+item.getProducto().getTitle()+", PRICE: "+item.getProducto().getPrice()); 
 			contador++;
 		}
-	}
-	
-	private void comprarObjeto() {
-		/*
-		 * FUNCION ENCARGADA DE COMPRAR EL ARTICULO
-		 */
-		
-		if (!this.ventana.listaCompras.isSelectionEmpty()) {
-			
-			List<Item> l = this.inventario.get(Categoria.valueOf(this.ventana.comboBoxCategoria.getSelectedItem().toString())).get(Tipo.valueOf(this.ventana.comboBoxSeleccion.getSelectedItem().toString()));
-			Item item = l.get(this.ventana.listaCompras.getSelectedIndex());
-			System.out.println(item.getProducto().getPrice().getCurrent_price());
-			float costo = item.getProducto().getPrice().getCurrent_price();
-			
-			if(costo<this.personaje.getDinero()) {
-				
-				if (!this.personaje.getInventario().contains(item)) {
-					
-					this.personaje.setDinero(this.personaje.getDinero()-costo);
-					this.ventana.lblDinero.setText("Dinero: "+this.personaje.getDinero());
-					this.personaje.getInventario().add(item);
-					this.asignarProductosComprados();
-					System.out.println(this.personaje.getInventario().size());
-					
-				}else {	JOptionPane.showMessageDialog(null, "¡El articulo ya se encuentra en el inventario del personaje!");}
-				
-			}else {	JOptionPane.showMessageDialog(null, "¡Dinero insuficiente!");}
-
-		}else {	JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opción a comprar!");}
-	}
-	
-	private void cargarInventario() {
-		/*
-		 * FUNCION ENCARGADA DE CARGAR EL JSON CON LOS DATOS EN EL HASHMAP DEINVENTARIO
-		 */
-		
-		this.inventario = new HashMap<>();
-		
-		for (Tipo tipo : Tipo.values()) {
-			
-			if (this.inventario.get(tipo.categoria) == null) {
-				this.inventario.put(tipo.categoria, new HashMap<Tipo,List<Item>>());
-			}
-			
-			List<Producto> l = CreadorObjetos.getListProducts(tipo.toString());
-			List<Item> listaItem = new ArrayList<>();
-			
-			for (int j = 0; j < l.size(); j++) {
-				
-				Item item = new Item((new Random()).nextInt(10) + 3,tipo.categoria , tipo, l.get(j));
-				listaItem.add(item);
-				
-			}
-				
-			this.inventario.get(tipo.categoria).put(tipo, listaItem);
-			
-		}	
-	}
-	
-	private void venderItem() {
-	/*
-	 * FUNCION ENCARGADA DE VENDER EL ITEM A LA MITAD DE SU VALOR INICIAL
-	 */
-		if (!this.ventana.listaInventario.isSelectionEmpty()) {
-			
-			Item item = this.personaje.getInventario().get(this.ventana.listaInventario.getSelectedIndex());
-			int desicion = JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea vender este Item a USD "+item.getProducto().getPrice().getCurrent_price()/2+"?");
-			if (desicion == JOptionPane.YES_OPTION) {
-				this.personaje.getInventario().remove(item);
-				this.personaje.setDinero(this.personaje.getDinero()+(item.getProducto().getPrice().getCurrent_price()/2));
-				this.ventana.lblDinero.setText("Dinero: "+this.personaje.getDinero());
-				this.asignarProductosComprados();
-			}	
-			
-		}else { JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opción a vender!");}
-		
-	}
-	
-	private void equiparItem() {
-		
 	}
 	
 	@Override
@@ -228,16 +223,16 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 				
 				this.setPersonajeEstads();
 				int index = this.ventana.listaCompras.getSelectedIndex();
-				List<Item> l = this.inventario.get(Categoria.valueOf(this.ventana.comboBoxCategoria.getSelectedItem().toString())).get(Tipo.valueOf(this.ventana.comboBoxSeleccion.getSelectedItem().toString()));
+				List<Item> l = tienda.getListItem(getItemSeleccionadoTienda());
 				Item item = l.get(index);
-				actualizarLabel(item.getEstadistica());
+				actualizarLabel(item);
 				this.agregarImagen(item);
 				
 			}else {
 				this.setPersonajeEstads();
 				int index = this.ventana.listaInventario.getSelectedIndex();
 				Item item = this.personaje.getInventario().get(index);
-				actualizarLabel(item.getEstadistica());
+				actualizarLabel(item);
 				this.agregarImagen(item);
 			}
 		}
@@ -248,29 +243,28 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 		 * Se crea el hashmap de labelsEstadisticas 
 		 * apartir de una lista de JlabelsEstadistica
 		 * */
-		hashMapLblStats = new HashMap<Categoria,ArrayList<JLabelEstadistica>>();
+		
+		hashMapLblStats = new HashMap<NombreEstadistica, JLabelEstadistica>();
 		List<JLabelEstadistica> arrayListLblStats = ventana.getJlblEstadisticas();
 		
 		for (JLabelEstadistica lblEstadistica : arrayListLblStats) {
-			if(hashMapLblStats.get(lblEstadistica.getCategoria()) == null){
-				hashMapLblStats.put(lblEstadistica.getCategoria(), new ArrayList<JLabelEstadistica>());
-			}
-			hashMapLblStats.get(lblEstadistica.getCategoria()).add(lblEstadistica);
+			hashMapLblStats.put(lblEstadistica.getNombreEstadistica(), lblEstadistica);
 		}
 	}
 	
-	private void actualizarLabel(Estadistica estad) {
+	private void actualizarLabel(Item item) {
 		/* Este metodo actualiza las labels de estadisticas con el estad enviado
 		 * Este tiene categoria y un valor, solo eso es necesario para identificar las labels
 		 * a modificar
 		 * */
-		ArrayList<JLabelEstadistica> arrayLabel = hashMapLblStats.get(estad.getCategoria());
-		int valorPersonaje;
-		int valorEstadistica = estad.getValor();
-		for (JLabelEstadistica lblStats : arrayLabel) {
-			valorPersonaje = personaje.getHashMapJugadorStats().get(estad.getCategoria()).getValor();
-			lblStats.setText(valorPersonaje + "  +  " + valorEstadistica);
-			valorEstadistica = valorEstadistica / 2;
+		int valorPersonaje = 0;
+		int valorEstadistica = item.getEstadistica().getValor();
+		for (NombreEstadistica nmbrEstadistica : item.getTipo().listNmbrSts) {
+				
+			valorPersonaje += personaje.getHashMapJugadorStats().get(nmbrEstadistica).getValor();
+			valorEstadistica = (valorEstadistica / 2) + 1;	
+			hashMapLblStats.get(nmbrEstadistica).setText(valorPersonaje + "  +  " + valorEstadistica);
+			
 		}
 	}
 	
@@ -279,12 +273,12 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 		 * Este metodo setea las estads del personaje recorriendo el 
 		 * hash de estadisticas para llamar el metodo
 		 * */
-		for (Estadistica estad : personaje.getHashMapJugadorStats().values()) {
-			int valor = personaje.getHashMapJugadorStats().get(estad.getCategoria()).getValor();
-			ArrayList<JLabelEstadistica> arrayLabel = hashMapLblStats.get(estad.getCategoria());
-			for (JLabelEstadistica lblStats : arrayLabel) {
-				lblStats.setText(String.valueOf(valor));
-			}
+		int valorPersonaje = 0;
+		NombreEstadistica nmbrEstadistica;
+		for (Estadistica estadistica : personaje.getHashMapJugadorStats().values()) {
+			nmbrEstadistica = estadistica.getNombreEstadistica();
+			valorPersonaje = personaje.getHashMapJugadorStats().get(nmbrEstadistica).getValor();
+			hashMapLblStats.get(nmbrEstadistica).setText(String.valueOf(valorPersonaje));
 		}
 	}
 	

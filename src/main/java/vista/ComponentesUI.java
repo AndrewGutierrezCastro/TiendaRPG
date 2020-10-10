@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import modelo.Categoria;
+import modelo.NombreEstadistica;
 
 public class ComponentesUI {
 	
@@ -29,8 +30,16 @@ public class ComponentesUI {
 	}
 	
 	//DEVUELVE UN JLABElESTADISTICA
-	public static JLabelEstadistica getLabel(String title, String s, Categoria categoria, int x, int y, int width, int height){
-		JLabelEstadistica a = new JLabelEstadistica(categoria, title);
+	public static JLabelEstadistica 
+		getLabel(String title, 
+					String s,
+					Categoria categoria,
+					NombreEstadistica nombreEstadistica,
+					int x,
+					int y,
+					int width,
+					int height){
+		JLabelEstadistica a = new JLabelEstadistica(categoria, nombreEstadistica ,title);
 		a.setFont(new Font("Arial", Font.PLAIN, 12));
 		a.setText(s);
 		a.setBounds(x,y,width,height);

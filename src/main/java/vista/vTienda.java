@@ -21,6 +21,7 @@ import javax.swing.JTabbedPane;
 
 import controlador.ControladorTienda;
 import modelo.Categoria;
+import modelo.NombreEstadistica;
 
 public class vTienda {
 
@@ -159,6 +160,7 @@ public class vTienda {
 					getLabel("Ataque: ",
 							String.valueOf(modelo.DatosEstadisticas.ataque),
 							modelo.DatosEstadisticas.cAtaque,
+							NombreEstadistica.ATAQUE,
 							10,240,200,20);
 		this.panelPersonaje.add(this.lblAtaque);
 
@@ -166,6 +168,7 @@ public class vTienda {
 					getLabel("Defensa: ",
 							String.valueOf(modelo.DatosEstadisticas.defensa),
 							modelo.DatosEstadisticas.cDefensa,
+							NombreEstadistica.DEFENSA,
 							10,280,200,20);
 		this.panelPersonaje.add(this.lblDefensa);
 		
@@ -173,6 +176,7 @@ public class vTienda {
 					getLabel("Velocidad: ",
 							String.valueOf(modelo.DatosEstadisticas.velocidad),
 							modelo.DatosEstadisticas.cVelocidad,
+							NombreEstadistica.VELOCIDAD,
 							10,320,200,20);
 		this.panelPersonaje.add(this.lblVelocidad);
 		
@@ -180,6 +184,7 @@ public class vTienda {
 					getLabel("Vida: ",
 							String.valueOf(modelo.DatosEstadisticas.vida),
 							modelo.DatosEstadisticas.cVida,
+							NombreEstadistica.VIDA,
 							10,360,200,20);
 		this.panelPersonaje.add(this.lblVida);
 		
@@ -187,6 +192,7 @@ public class vTienda {
 					getLabel("Magia: ",
 							String.valueOf(modelo.DatosEstadisticas.magia),
 							modelo.DatosEstadisticas.cMagia,
+							NombreEstadistica.MAGIA,
 							10,400,200,20);
 		this.panelPersonaje.add(this.lblMagia);
 		

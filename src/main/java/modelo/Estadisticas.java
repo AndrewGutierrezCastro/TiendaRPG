@@ -18,17 +18,32 @@ public class Estadisticas{
 				ataque,
 				velocidad,
 				vida,
-				suerte;
+				magia;
 
 	//Constructor:
 	public Estadisticas() {
 		super();
 		
-		this.ataque = new Estadistica(DatosEstadisticas.ataque, DatosEstadisticas.cAtaque);
-		this.defensa = new Estadistica(DatosEstadisticas.defensa, DatosEstadisticas.cDefensa);
-		this.velocidad = new Estadistica(DatosEstadisticas.velocidad, DatosEstadisticas.cVelocidad);
-		this.vida = new Estadistica(DatosEstadisticas.vida, DatosEstadisticas.cVida);
-		this.suerte = new Estadistica(DatosEstadisticas.magia, DatosEstadisticas.cMagia);
+		this.ataque = new Estadistica(
+						DatosEstadisticas.ataque, 
+						DatosEstadisticas.cAtaque,
+						NombreEstadistica.ATAQUE);
+		this.defensa = new Estadistica(
+						DatosEstadisticas.defensa, 
+						DatosEstadisticas.cDefensa,
+						NombreEstadistica.DEFENSA);
+		this.velocidad = new Estadistica(
+						DatosEstadisticas.velocidad, 
+						DatosEstadisticas.cVelocidad,
+						NombreEstadistica.VELOCIDAD);
+		this.vida = new Estadistica(
+					DatosEstadisticas.vida, 
+					DatosEstadisticas.cVida,
+					NombreEstadistica.VIDA);
+		this.magia = new Estadistica(
+					DatosEstadisticas.magia, 
+					DatosEstadisticas.cMagia,
+					NombreEstadistica.MAGIA);
 		
 	}
 
@@ -51,7 +66,7 @@ public class Estadisticas{
 	}
 
 	public Estadistica getSuerte() {
-		return suerte;
+		return magia;
 	}
 
 	public List<Estadistica> getArrayListStats(){
@@ -60,7 +75,7 @@ public class Estadisticas{
 				ataque, 
 				velocidad,
 				vida,
-				suerte);
+				magia);
 	}
 
 
