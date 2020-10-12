@@ -7,7 +7,6 @@ public class Item {
 	 * Funciones: Getters and Setter, Constructor.
 	 */
 	private Estadistica estadistica;
-	//private Categoria categoria;
 	private Categoria categoria;
 	private Tipo tipo;
 	private Producto producto;

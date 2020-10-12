@@ -98,6 +98,12 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 		
 		if (!this.ventana.listaInventario.isSelectionEmpty()) {
 			Item item = this.personaje.getItemInventario(this.ventana.listaInventario.getSelectedIndex());
+			
+			if (this.personaje.isEquipado(item)) {
+				JOptionPane.showMessageDialog(null, "¡No se puede vender un item equipado!");
+				return;
+			}
+			
 			int desicion = JOptionPane.
 					showConfirmDialog(null,
 						"¿Esta seguro que desea vender este Item a USD "+
@@ -144,6 +150,21 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 	
 	private void equiparItem() {
 		
+		if (!this.ventana.listaInventario.isSelectionEmpty()) {
+			
+			Item item = this.personaje.getItemInventario(this.ventana.listaInventario.getSelectedIndex());
+			if(!this.personaje.isEquipado(item)) {
+				this.personaje.equiparItem(item);
+				JOptionPane.showMessageDialog(null, "¡El item se ha equipado con exito!");
+			}else {
+				this.personaje.desequiparItem(item);
+				JOptionPane.showMessageDialog(null, "¡El item ya no se encuentra equipado!");
+			}
+			this.setPersonajeEstads();
+			this.asignarProductosComprados();
+			
+			
+		}else { JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opción a equipar!");}
 	}
 	
 
@@ -234,7 +255,18 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 				Item item = this.personaje.getInventario().get(index);
 				actualizarLabel(item);
 				this.agregarImagen(item);
+				this.actualizarBtnEquipar(item);
+				
 			}
+		}
+	}
+	
+	private void actualizarBtnEquipar(Item item) {
+		
+		if (this.personaje.isEquipado(item)) {
+			this.ventana.btnEquipar.setText("Desequipar");
+		}else {
+			this.ventana.btnEquipar.setText("Equipar");
 		}
 	}
 	
@@ -261,9 +293,9 @@ public class ControladorTienda implements ActionListener, ListSelectionListener 
 		int valorEstadistica = item.getEstadistica().getValor();
 		for (NombreEstadistica nmbrEstadistica : item.getTipo().listNmbrSts) {
 				
-			valorPersonaje += personaje.getHashMapJugadorStats().get(nmbrEstadistica).getValor();
-			valorEstadistica = (valorEstadistica / 2) + 1;	
+			valorPersonaje = personaje.getHashMapJugadorStats().get(nmbrEstadistica).getValor();	
 			hashMapLblStats.get(nmbrEstadistica).setText(valorPersonaje + "  +  " + valorEstadistica);
+			valorEstadistica = (valorEstadistica / 2);
 			
 		}
 	}

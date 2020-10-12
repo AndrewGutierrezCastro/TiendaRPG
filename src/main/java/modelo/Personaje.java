@@ -77,7 +77,53 @@ public class Personaje {
 	}
 
 	public void equiparItem(Item item) {
+			
+		Item item2 = this.equipado.get(item.getTipo());
+		int valorEstadistica;
 		
+		if (item2 != null) {//Si ya contiene un item de un tipo equipado
+			this.desequiparItem(item2);
+		}
+		
+		valorEstadistica = item.getEstadistica().getValor();
+		for (NombreEstadistica nmbrEstadistica : item.getTipo().listNmbrSts) {
+			
+			Estadistica estadistica = this.hashMapJugadorStats.get(nmbrEstadistica);
+			estadistica.setValor(estadistica.getValor()+valorEstadistica);
+			valorEstadistica = (valorEstadistica / 2);	
+
+		}
+		
+		//VERIFICA SI ES UNA POCION PARA USARLA E ELIMINARLA
+		if (item.getCategoria() != Categoria.CONSUMIBLES) {
+			this.equipado.put(item.getTipo(), item);
+		}else {
+			this.inventario.remove(item);
+		}	
+	}
+	
+	public void desequiparItem(Item item) {
+		
+		int valorEstadistica = item.getEstadistica().getValor();
+		
+		for (NombreEstadistica nmbrEstadistica : item.getTipo().listNmbrSts) {
+			
+			Estadistica estadistica = this.hashMapJugadorStats.get(nmbrEstadistica);
+			estadistica.setValor(estadistica.getValor()-valorEstadistica);
+			valorEstadistica = (valorEstadistica / 2);	
+
+		}
+		this.equipado.remove(item.getTipo());
+	}
+	
+	public boolean isEquipado(Item item) {
+		/*
+		 * Averigua si el item ya se encuentra equipado
+		 */
+		if (this.equipado.containsValue(item)) {
+			return true;
+		}
+		return false;
 	}
 	
 	public float getDinero() {
