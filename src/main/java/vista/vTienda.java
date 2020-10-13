@@ -69,9 +69,6 @@ public class vTienda {
 			comboBoxCategoria,
 			comboBoxSeleccion;
 	
-	public Image
-			img_Fondo;
-	
 	private ControladorTienda controlador;
 	/**
 	 * Create the application.

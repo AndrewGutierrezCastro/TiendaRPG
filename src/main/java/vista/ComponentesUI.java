@@ -65,12 +65,6 @@ public class ComponentesUI {
 		return a;
 	}
 	
-	//DEVUELVE UN COMBOBOX
-	public static JComboBox getComboBox(){
-		JComboBox a = new JComboBox<>();
-		return a;
-	}
-	
 	//DEVUELVE UN BufferedImage
 	public static BufferedImage getWebImage(URL url) throws IOException {
 		BufferedImage img = ImageIO.read(url);
