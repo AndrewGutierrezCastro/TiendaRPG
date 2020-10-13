@@ -95,8 +95,6 @@ public class vTienda {
 	@SuppressWarnings("unchecked")
 	private void initialize() {
 		
-		//PROPIEDADES DE LAS IMAGENES
-		this.img_Fondo = new ImageIcon(getClass().getResource("/Imagenes/Tienda_interior.png")).getImage();
 		
 		//PROPIEDADES DEL FRAME
 		this.frame = new JFrame();

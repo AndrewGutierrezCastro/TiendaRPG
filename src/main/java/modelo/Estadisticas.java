@@ -47,28 +47,6 @@ public class Estadisticas{
 		
 	}
 
-	
-	//Funciones:
-	public Estadistica getDefensa() {
-		return defensa;
-	}
-
-	public Estadistica getAtaque() {
-		return ataque;
-	}
-
-	public Estadistica getVelocidad() {
-		return velocidad;
-	}
-
-	public Estadistica getVida() {
-		return vida;
-	}
-
-	public Estadistica getSuerte() {
-		return magia;
-	}
-
 	public List<Estadistica> getArrayListStats(){
 		return Arrays.asList(
 				defensa, 
